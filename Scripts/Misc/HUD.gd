@@ -266,6 +266,7 @@ func _on_CounterCount_timeout():
 		# check if adding score would hit the life bonus
 		Global.check_score_life(100)
 		ringBonus -= 100
+		Global.players[focusPlayer].rings -= 1
 		Global.score += 100
 		totalBonus += 100
 	else:
