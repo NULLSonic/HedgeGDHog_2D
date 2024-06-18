@@ -17,6 +17,10 @@ func _physics_process(delta):
 	if (!parent.ground):
 		parent.set_state(parent.STATES.AIR,parent.currentHitbox.ROLL)
 		return null
+	else:
+		if parent.uncurl and parent.inputs[parent.INPUTS.YINPUT] < 0:
+			parent.set_state(parent.STATES.NORMAL)
+			return null
 	# Set normal if speed is 0
 	if (parent.movement.x == 0):
 		parent.set_state(parent.STATES.NORMAL)

@@ -36,7 +36,7 @@ func _process(delta):
 	
 	# jumping / rolling and more (note, you'll want to adjust the other actions if your character does something different)
 	if parent.any_action_pressed():
-		if (parent.movement.x == 0 and parent.inputs[parent.INPUTS.YINPUT] > 0):
+		if (parent.movement.x == 0 and parent.inputs[parent.INPUTS.YINPUT] > 0) and parent.spin_dash:
 			parent.animator.play("spinDash")
 			parent.sfx[2].play()
 			parent.sfx[2].pitch_scale = 1
@@ -44,7 +44,7 @@ func _process(delta):
 			parent.animator.play("spinDash")
 			parent.set_state(parent.STATES.SPINDASH)
 		# peelout (Sonic only)
-		elif (parent.movement.x == 0 and parent.inputs[parent.INPUTS.YINPUT] < 0 and parent.character == parent.CHARACTERS.SONIC):
+		elif (parent.movement.x == 0 and parent.inputs[parent.INPUTS.YINPUT] < 0) and parent.peelout:
 			parent.sfx[2].play()
 			parent.sfx[2].pitch_scale = 1
 			parent.spindashPower = 0

@@ -115,6 +115,31 @@ var RotatingParticle = preload("res://Entities/Misc/RotatingParticle.tscn")
 var superSprite = load("res://Graphics/Players/SuperSonic.png")
 @onready var normalSprite = $Sonic/Sprite2D.texture
 var playerPal = preload("res://Shaders/PlayerPalette.tres")
+# ================
+
+@export_group("Abilities") ## Character abilities.
+@export var spin_dash: bool = true ## The regular Spin Dash.
+@export var peelout: bool = false ## The regular Peelout
+@export var peelout_rework: bool = false ## Reworks the Peelout, so you can add more speed onto and getting invinvibility for a brief time.
+@export var drop_dash: bool = false ## The regular Drop Dash.
+@export var drop_dash_rework: bool = false ## Reworks the Drop Dash so you gain more speed the longer you fall.
+@export var insta_shield: bool = false ## The regular Insta Shield.
+@export var insta_dash: bool = false ## Behaves almost the same as the Advenuters' Spin Dash. Press one button and charge up a Spin Dash.
+@export var air_curl: bool = false ## Lets you curl up into a ball whilst airborne.
+@export var uncurl: bool = false ## Lets you instantly uncurl on the ground.
+@export var cancel_super: bool = false ## Lets you cancel the super form.
+
+@export_subgroup("Sonic") ## Sonic only abilities
+@export var homing_attack: bool = false ## The well known Homing Attack but in 2D.
+@export var stomp: bool = false ## Lets you descent faster and damages enemies within contact.
+@export var light_speed_dash: bool = false ## Lets you zoom along a line of rings.
+
+@export_subgroup("Tails") ## Tails only abilities
+@export var flight_cancel: bool = false ## Lets you cancel Tails' flight.
+@export var flight_burst: bool = false ## Lets you get some height upwards and start flying afterwards. (Sonic Frontiers' Tails flying start animation.)
+
+@export_subgroup("Knuckles") ## Knuckles only abilites
+@export var drill_fists: bool = false ## Similar to stomp but can also break terrain.
 
 # ================
 
@@ -407,8 +432,26 @@ func _ready():
 	# set partner sounds to share players (prevents sound overlap)
 	if playerControl == 0:
 		partner.sfx = sfx
+		
+	set_abilities()
 
-
+func set_abilities():
+	spin_dash = SaveData.is_true("Spin Dash")
+	peelout = SaveData.is_true("Peelout")
+	peelout_rework = SaveData.is_true("Peelout Rework")
+	drop_dash = SaveData.is_true("Drop Dash")
+	drop_dash_rework = SaveData.is_true("Drop Dash Rework")
+	insta_shield = SaveData.is_true("Insta Shield")
+	insta_dash = SaveData.is_true("Insta Dash")
+	air_curl = SaveData.is_true("Air Curl")
+	uncurl = SaveData.is_true("Uncurl")
+	cancel_super = SaveData.is_true("Cancel Super")
+	homing_attack = SaveData.is_true("Homing Attack")
+	stomp = SaveData.is_true("Stomp")
+	light_speed_dash = SaveData.is_true("Light Speed Dash")
+	flight_cancel = SaveData.is_true("Flight Cancel")
+	flight_burst = SaveData.is_true("Flight Burst")
+	drill_fists = SaveData.is_true("Drill Fists")
 
 # 0 not pressed, 1 pressed, 2 held (best to do > 0 when checking input), -1 released
 func calculate_input(event, action = "gm_action"):

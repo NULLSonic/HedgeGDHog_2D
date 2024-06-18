@@ -39,20 +39,21 @@ func _process(_delta):
 							match (parent.shield):
 								# insta shield
 								parent.SHIELDS.NONE:
-									parent.sfx[16].play()
-									parent.shieldSprite.play("Insta")
-									parent.shieldSprite.frame = 0
-									parent.shieldSprite.visible = true
-									# enable insta shield hitbox
-									parent.shieldSprite.get_node("InstaShieldHitbox/HitBox").disabled = false
-									# wait for animation for the shield to finish
-									await parent.shieldSprite.animation_finished
-									# check shields hasn't changed
-									if (parent.shield == parent.SHIELDS.NONE):
-										parent.shieldSprite.visible = false
-										parent.shieldSprite.stop()
-									# disable insta shield
-									parent.shieldSprite.get_node("InstaShieldHitbox/HitBox").disabled = true
+									if parent.insta_shield:
+										parent.sfx[16].play()
+										parent.shieldSprite.play("Insta")
+										parent.shieldSprite.frame = 0
+										parent.shieldSprite.visible = true
+										# enable insta shield hitbox
+										parent.shieldSprite.get_node("InstaShieldHitbox/HitBox").disabled = false
+										# wait for animation for the shield to finish
+										await parent.shieldSprite.animation_finished
+										# check shields hasn't changed
+										if (parent.shield == parent.SHIELDS.NONE):
+											parent.shieldSprite.visible = false
+											parent.shieldSprite.stop()
+										# disable insta shield
+										parent.shieldSprite.get_node("InstaShieldHitbox/HitBox").disabled = true
 								
 								# elec shield action
 								parent.SHIELDS.ELEC:
@@ -142,7 +143,7 @@ func _physics_process(delta):
 		# Drop dash (for sonic / amy)
 		if parent.character == parent.CHARACTERS.SONIC or parent.character == parent.CHARACTERS.AMY:
 			
-			if parent.any_action_held_or_pressed() and parent.abilityUsed and (parent.shield <= parent.SHIELDS.NORMAL or parent.isSuper or $"../../InvincibilityBarrier".visible or parent.character == parent.CHARACTERS.AMY):
+			if parent.any_action_held_or_pressed() and parent.abilityUsed and parent.drop_dash and (parent.shield <= parent.SHIELDS.NORMAL or parent.isSuper or $"../../InvincibilityBarrier".visible or parent.character == parent.CHARACTERS.AMY):
 				if dropTimer < 1:
 					dropTimer += (delta/20)*60 # should be ready in the equivelent of 20 frames at 60FPS
 					if dropTimer >= 1:

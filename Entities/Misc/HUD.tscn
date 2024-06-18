@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://c30uceea18q1w"]
+[gd_scene load_steps=32 format=3 uid="uid://c30uceea18q1w"]
 
 [ext_resource type="Texture2D" uid="uid://dloxtqer7p78l" path="res://Graphics/HUD/hud_lives.png" id="2_cfvjc"]
 [ext_resource type="Material" uid="uid://bveqi5m5ihsgj" path="res://Shaders/PlayerPalette.tres" id="2_xy7bp"]
@@ -13,7 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://bn4id4yr1lron" path="res://Graphics/HUD/hud_results_text.png" id="10_ddlv5"]
 [ext_resource type="Texture2D" uid="uid://bbm5bncrd1o4k" path="res://Graphics/HUD/LevelCards/EdgePattern.png" id="10_xpi0a"]
 [ext_resource type="Material" uid="uid://uh2c8jbp8qwd" path="res://Shaders/WaterPalette.tres" id="13_1ly2g"]
+[ext_resource type="Texture2D" uid="uid://42u07af87yel" path="res://Graphics/HUD/hud_continues.png" id="13_v60if"]
 [ext_resource type="AudioStream" uid="uid://dh4rsaka62ph4" path="res://Audio/SFX/Gimmicks/Switch.wav" id="16"]
+[ext_resource type="AudioStream" uid="uid://orfkvnnvclmt" path="res://Audio/SFX/Global/Continue.ogg" id="16_358is"]
 [ext_resource type="AudioStream" uid="uid://clgobastngtvy" path="res://Audio/SFX/Misc/Score.wav" id="17"]
 
 [sub_resource type="Animation" id="5"]
@@ -465,9 +467,9 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"transitions": PackedFloat32Array(-2, 1),
 "update": 0,
-"values": [Vector2(-256, 56), Vector2(64, 56)]
+"values": [Vector2(-256, 56), Vector2(160, 56)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -477,9 +479,9 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"transitions": PackedFloat32Array(-2, 1),
 "update": 0,
-"values": [Vector2(-256, 80), Vector2(64, 80)]
+"values": [Vector2(-256, 80), Vector2(160, 80)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -489,9 +491,9 @@ tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"transitions": PackedFloat32Array(-2, 1),
 "update": 0,
-"values": [Vector2(520, 75), Vector2(200, 75)]
+"values": [Vector2(520, 75), Vector2(260, 75)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -501,9 +503,33 @@ tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"transitions": PackedFloat32Array(-2, 1),
 "update": 0,
-"values": [Vector2(-256, 128), Vector2(88, 128)]
+"values": [Vector2(-256, 128), Vector2(164, 128)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Tally/Continues:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../Counters:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(-2, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="8"]
@@ -557,10 +583,28 @@ tracks/3/keys = {
 "values": [Vector2(-256, 128)]
 }
 
+[sub_resource type="Animation" id="Animation_nlw5f"]
+resource_name = "continue"
+loop_mode = 1
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Tally/Continues:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_21eah"]
 _data = {
 "LevelClear": SubResource("7"),
-"RESET": SubResource("8")
+"RESET": SubResource("8"),
+"continue": SubResource("Animation_nlw5f")
 }
 
 [sub_resource type="Animation" id="9"]
@@ -699,6 +743,7 @@ offset_top = 8.0
 offset_right = 32.0
 offset_bottom = 8.0
 theme_override_fonts/font = ExtResource("3_eauoj")
+theme_override_font_sizes/font_size = 8
 text = "0"
 
 [node name="Counters" type="Control" parent="."]
@@ -783,9 +828,9 @@ color = Color(0, 0, 0, 1)
 layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -94.5
+offset_left = -146.5
 offset_top = -203.0
-offset_right = 94.5
+offset_right = 42.5
 size_flags_stretch_ratio = 0.0
 texture = ExtResource("7_ccygi")
 stretch_mode = 2
@@ -853,9 +898,9 @@ anchor_left = 1.0
 anchor_top = 0.003
 anchor_right = 1.0
 anchor_bottom = 0.003
-offset_top = -11.68
-offset_right = 4288.0
-offset_bottom = 244.32
+offset_top = -11.728
+offset_right = 5920.0
+offset_bottom = 244.272
 grow_horizontal = 0
 grow_vertical = 2
 texture = ExtResource("10_xpi0a")
@@ -926,17 +971,42 @@ region_enabled = true
 region_rect = Rect2(0, 0, 80, 32)
 
 [node name="ScoreText" type="Sprite2D" parent="LevelClear/Tally"]
-position = Vector2(0, -16)
+position = Vector2(24, 56)
 texture = ExtResource("10_ddlv5")
 centered = false
 region_enabled = true
-region_rect = Rect2(0, 0, 40, 16)
+region_rect = Rect2(0, 49, 39, 12)
+
+[node name="Time" type="Sprite2D" parent="LevelClear/Tally"]
+position = Vector2(40, 39.5)
+texture = ExtResource("10_ddlv5")
+region_enabled = true
+region_rect = Rect2(0, 81, 80, 15)
+
+[node name="TimeNumber" type="Label" parent="LevelClear/Tally"]
+offset_left = 72.0
+offset_top = 32.0
+offset_right = 112.0
+offset_bottom = 48.0
+theme_override_fonts/font = ExtResource("6_synv7")
+text = "00:00"
+
+[node name="BEST" type="Label" parent="LevelClear/Tally/TimeNumber"]
+visible = false
+layout_mode = 0
+offset_top = 5.0
+offset_right = 40.0
+offset_bottom = 21.0
+theme_override_font_sizes/font_size = 8
+text = "BEST"
+horizontal_alignment = 2
+vertical_alignment = 2
 
 [node name="ScoreNumber" type="Label" parent="LevelClear/Tally"]
 offset_left = 104.0
-offset_top = -16.0
-offset_right = 104.0
-offset_bottom = -16.0
+offset_top = 56.0
+offset_right = 112.0
+offset_bottom = 72.0
 theme_override_fonts/font = ExtResource("6_synv7")
 text = "0"
 
@@ -954,6 +1024,13 @@ offset_bottom = 16.0
 theme_override_fonts/font = ExtResource("6_synv7")
 text = "0"
 
+[node name="Continues" type="Sprite2D" parent="LevelClear/Tally"]
+visible = false
+position = Vector2(125, 52)
+texture = ExtResource("13_v60if")
+hframes = 2
+vframes = 3
+
 [node name="CounterWait" type="Timer" parent="LevelClear"]
 wait_time = 6.0
 one_shot = true
@@ -968,6 +1045,9 @@ bus = &"SFX"
 [node name="Score" type="AudioStreamPlayer" parent="LevelClear"]
 stream = ExtResource("17")
 bus = &"SFX"
+
+[node name="Continue" type="AudioStreamPlayer" parent="LevelClear"]
+stream = ExtResource("16_358is")
 
 [node name="GameOver" type="Control" parent="."]
 layout_mode = 3
