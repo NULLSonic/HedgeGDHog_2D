@@ -1,3 +1,4 @@
+@icon("res://icon.png")
 extends CanvasLayer
 
 # player ID look up

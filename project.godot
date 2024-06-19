@@ -14,11 +14,14 @@ config/name="HedgeGDHog 2D"
 config/version="0.1.0"
 config/tags=PackedStringArray("2d", "classic", "sonic")
 run/main_scene="res://Scene/Main.tscn"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="HedgeGDHog2D"
 config/features=PackedStringArray("4.2")
 run/max_fps=60
 boot_splash/bg_color=Color(1, 1, 1, 1)
 boot_splash/image="res://logo.png"
 boot_splash/fullsize=false
+boot_splash/use_filter=false
 config/icon="res://icon.png"
 
 [autoload]
