@@ -135,6 +135,7 @@ func change_scene_to_file(scene = null, fadeOut = "", fadeIn = "", length = 1, s
 		Global.checkPoints = []
 		Global.waterLevel = null
 		Global.gameOver = false
+		Global.cool_score = 10000
 		if Global.stageClearPhase != 0:
 			Global.currentCheckPoint = -1
 			Global.levelTime = 0

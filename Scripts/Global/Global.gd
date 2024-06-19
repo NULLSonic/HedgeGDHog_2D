@@ -54,6 +54,7 @@ var soundChannel = AudioStreamPlayer.new()
 var score = 0
 var lives = 3
 var continues = 0
+var cool_score = 10000 # Sonic Manias Cool Bonus
 # emeralds use bitwise flag operations, the equivelent for 7 emeralds would be 128
 var emeralds = 0
 # emerald bit flags
@@ -134,6 +135,7 @@ func _process(delta):
 func reset_values():
 	lives = 3
 	score = 0
+	cool_score = 10000
 	continues = 0
 	levelTime = 0
 	emeralds = 0

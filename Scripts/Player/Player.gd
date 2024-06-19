@@ -1081,6 +1081,8 @@ func hit_player(damagePoint = global_position, damageType = 0, soundID = 6):
 		disconect_from_floor()
 		set_state(STATES.HIT)
 		invTime = 120
+		if Global.cool_score > 0:
+			Global.cool_score -= 1000
 		# Ring loss
 		if (shield == SHIELDS.NONE and rings > 0 and playerControl == 1):
 			sfx[9].play()

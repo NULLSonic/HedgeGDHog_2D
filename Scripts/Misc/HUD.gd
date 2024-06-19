@@ -24,6 +24,7 @@ var isStageEnding = false
 # level clear bonuses (check _on_CounterCount_timeout)
 var timeBonus = 0
 var ringBonus = 0
+var coolBonus = 0
 var totalBonus = 0
 
 # gameOver is used to initialize the game over animation sequence, note: this is for animation, if you want to use the game over status it's in global
@@ -99,9 +100,9 @@ func _process(delta):
 	# clamp time so that it won't go to 10 minutes
 	var timeClamp = min(Global.levelTime,Global.maxTime-1)
 	# set time text, format it to have a leadin 0 so that it's always 2 digits
-	timeText.text = "%2d" % floor(timeClamp/60) + ":" + str(fmod(floor(timeClamp),60)).pad_zeros(2)
+	#timeText.text = "%2d" % floor(timeClamp/60) + ":" + str(fmod(floor(timeClamp),60)).pad_zeros(2)
 	# uncomment below (and remove above line) for mili seconds
-	#timeText.text = "%2d" % floor(timeClamp/60) + ":" + str(fmod(floor(timeClamp),60)).pad_zeros(2) + ":" + str(fmod(floor(timeClamp*100),100)).pad_zeros(2)
+	timeText.text = "%2d" % floor(timeClamp/60) + ":" + str(fmod(floor(timeClamp),60)).pad_zeros(2) + ":" + str(fmod(floor(timeClamp*100),100)).pad_zeros(2)
 	
 	# cehck that there's player, if there is then track the focus players ring count
 	if (Global.players.size() > 0):
@@ -183,6 +184,8 @@ func _process(delta):
 			ringBonus = floor(Global.players[focusPlayer].rings)*100
 			$LevelClear/Tally/RingNumbers.text = "%6d" % ringBonus
 			$LevelClear/Tally/TimeNumbers.text = $Counters/Text/TimeNumbers.text
+			coolBonus = Global.cool_score
+			$LevelClear/Tally/CoolText/CoolNumbers.text = "%6d" % coolBonus
 			timeBonus = 0
 			# bonus time table
 			var bonusTable = [
@@ -269,6 +272,11 @@ func _on_CounterCount_timeout():
 		Global.players[focusPlayer].rings -= 1
 		Global.score += 100
 		totalBonus += 100
+	elif coolBonus > 0:
+		Global.check_score_life(100)
+		coolBonus -= 100
+		Global.score += 100
+		totalBonus += 100
 	else:
 		# stop counter timer and play score sound
 		$LevelClear/Counter.play()
@@ -280,4 +288,5 @@ func _on_CounterCount_timeout():
 	$LevelClear/Tally/ScoreNumber.text = "%6d" % totalBonus
 	$LevelClear/Tally/TimeNumbers.text = "%6d" % timeBonus
 	$LevelClear/Tally/RingNumbers.text = "%6d" % ringBonus
+	$LevelClear/Tally/CoolText/CoolNumbers.text = "%6d" % coolBonus
 	
