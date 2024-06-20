@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://d1e4muavtnun6"]
+[gd_scene load_steps=70 format=3 uid="uid://d1e4muavtnun6"]
 
 [ext_resource type="Material" uid="uid://bveqi5m5ihsgj" path="res://Shaders/PlayerPalette.tres" id="1_bjmss"]
 [ext_resource type="Texture2D" uid="uid://4lhg0ovh1pe8" path="res://Graphics/Players/Sonic.png" id="2_6xy2a"]
@@ -193,6 +193,23 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [37, 38, 39, 40]
+}
+
+[sub_resource type="Animation" id="Animation_uwv5h"]
+resource_name = "crouch_end"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sonic/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [41]
 }
 
 [sub_resource type="Animation" id="Animation_tn47m"]
@@ -683,7 +700,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [28, 29, 30, 31]
+"values": [77, 78, 79, 80]
 }
 
 [sub_resource type="Animation" id="103"]
@@ -705,7 +722,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="81"]
 resource_name = "roll"
-length = 0.6
+length = 1.6
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -714,15 +731,15 @@ tracks/0/path = NodePath("Sonic/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [32, 33, 36, 34, 35, 36]
+"values": [81, 82, 83, 84, 81, 82, 85, 84, 81, 82, 87, 88, 81, 82, 89, 90]
 }
 
 [sub_resource type="Animation" id="82"]
 resource_name = "run"
-length = 0.4
+length = 0.8
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -731,10 +748,10 @@ tracks/0/path = NodePath("Sonic/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [24, 25, 26, 27]
+"values": [64, 65, 66, 67, 68, 69, 70, 71]
 }
 
 [sub_resource type="Animation" id="100"]
@@ -813,10 +830,10 @@ tracks/0/path = NodePath("Sonic/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1002, 0.2004),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [88]
+"values": [91, 92, 93]
 }
 
 [sub_resource type="Animation" id="119"]
@@ -1102,10 +1119,9 @@ tracks/0/keys = {
 "values": [256, 267, 266, 265, 264, 263, 262, 261, 260, 259, 258, 257]
 }
 
-[sub_resource type="Animation" id="Animation_uwv5h"]
-resource_name = "crouch_end"
-length = 0.1
-step = 0.05
+[sub_resource type="Animation" id="Animation_d7bnr"]
+resource_name = "jog"
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1113,10 +1129,27 @@ tracks/0/path = NodePath("Sonic/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [41]
+"values": [54, 55, 56, 57, 58, 59, 60, 61, 62, 63]
+}
+
+[sub_resource type="Animation" id="Animation_rva2l"]
+resource_name = "dash"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sonic/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [73, 74, 75, 76]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_36uej"]
@@ -1130,6 +1163,7 @@ _data = {
 "crouch": SubResource("77"),
 "crouch_end": SubResource("Animation_uwv5h"),
 "current": SubResource("Animation_tn47m"),
+"dash": SubResource("Animation_rva2l"),
 "die": SubResource("98"),
 "dropDash": SubResource("107"),
 "drown": SubResource("99"),
@@ -1149,6 +1183,7 @@ _data = {
 "idle4": SubResource("117"),
 "idle5": SubResource("118"),
 "idle_super": SubResource("109"),
+"jog": SubResource("Animation_d7bnr"),
 "lookUp": SubResource("80"),
 "lookUp_end": SubResource("Animation_tjnuf"),
 "peelOut": SubResource("87"),
@@ -1304,7 +1339,7 @@ texture = ExtResource("2_6xy2a")
 offset = Vector2(0, -4)
 hframes = 21
 vframes = 21
-frame = 51
+frame = 91
 
 [node name="DashDust" type="AnimatedSprite2D" parent="Sprite2D"]
 visible = false

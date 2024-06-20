@@ -72,7 +72,7 @@ var waterScrollSpeed = 64 # used by other nodes for how fast to move the water t
 # characters (if you want more you should add one here, see the player script too for more settings)
 enum CHARACTERS {NONE,SONIC,TAILS,KNUCKLES,AMY}
 var PlayerChar1 = CHARACTERS.SONIC
-var PlayerChar2 = CHARACTERS.TAILS
+var PlayerChar2 = CHARACTERS.NONE
 
 # Level settings
 var hardBorderLeft   = -100000000

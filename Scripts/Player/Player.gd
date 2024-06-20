@@ -196,7 +196,7 @@ var rachetScrollRight = false
 var rachetScrollTop = false
 var rachetScrollBottom = false
 
-var rotatableSprites = ["walk", "run", "peelOut", "hammerSwing"]
+var rotatableSprites = ["walk", "jog", "run", "dash", "peelOut", "hammerSwing"]
 var direction = scale.x
 
 # Ground speed is mostly used for timing and animations, there isn't any functionality to it.
@@ -538,11 +538,11 @@ func _process(delta):
 	if (rotatableSprites.has(animator.current_animation)):
 		# check if player rotation is greater then 45 degrees or current angle doesn't match the gravity's angle or not on the floor
 		if abs(spriteRotation-90) >= 32 or rotation != gravityAngle or !ground:
-			sprite.rotation = deg_to_rad(snapped(spriteRotation,45)-90)-rotation-gravityAngle
+			pass #sprite.rotation = deg_to_rad(snapped(spriteRotation,45)-90)-rotation-gravityAngle
 		else:
 			sprite.rotation = -rotation-gravityAngle
 		# uncomment this next line out for smooth rotation (you should remove the above line too)
-		#sprite.rotation = deg_to_rad(spriteRotation-90)-rotation-gravityAngle
+		sprite.rotation = deg_to_rad(spriteRotation-90)-rotation-gravityAngle
 	else:
 		sprite.rotation = -rotation+gravityAngle
 

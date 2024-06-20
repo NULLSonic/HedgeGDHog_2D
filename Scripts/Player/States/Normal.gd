@@ -162,10 +162,14 @@ func _process(delta):
 					
 		elif sign(parent.pushingWall) == sign(parent.movement.x) and parent.pushingWall != 0:
 			parent.animator.play("push")
-		elif(abs(parent.movement.x) < 6*60):
+		elif(abs(parent.movement.x) < 4*60):
 			parent.animator.play("walk")
+		elif(abs(parent.movement.x) < 6*60):
+			parent.animator.play("jog")
 		elif(abs(parent.movement.x) < 10*60):
 			parent.animator.play("run")
+		elif(abs(parent.movement.x) < 12*60):
+			parent.animator.play("dash")
 		else:
 			parent.animator.play("peelOut")
 	
