@@ -156,6 +156,9 @@ func _physics_process(delta):
 				dropTimer = 0
 				if parent.animator.current_animation == "dropDash" and parent.character == parent.CHARACTERS.SONIC:
 					parent.animator.play("roll")
+	else:
+		if parent.animator.has_animation("fall"):
+			parent.animator.play("fall")
 	
 		
 	# Change parent direction

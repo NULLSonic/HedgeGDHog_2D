@@ -13,9 +13,7 @@ var actionPressed = false
 var playerIdles = [
 # SONIC
 ["idle1","idle2","idle2","idle2","idle2","idle3",
-"idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4",
-"idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4",
-"idle5"],
+"idle4","idle4","idle5"],
 # Tails
 ["idle1"], # Note: Tails idle loops on idle one, to add more idles make sure to disable his idle1 loop
 # Knuckles
@@ -32,6 +30,7 @@ func state_exit():
 	lookTimer = 0
 	parent.sfx[29].stop()
 
+var last_anim = ""
 func _process(delta):
 	
 	# jumping / rolling and more (note, you'll want to adjust the other actions if your character does something different)
@@ -62,10 +61,12 @@ func _process(delta):
 				lookTimer = max(0,lookTimer+delta*0.5)
 				if parent.lastActiveAnimation != "crouch":
 					parent.animator.play("crouch")
+					last_anim = "crouch"
 			elif (parent.inputs[parent.INPUTS.YINPUT] < 0):
 				lookTimer = min(0,lookTimer-delta*0.5)
 				if parent.lastActiveAnimation != "lookUp":
 					parent.animator.play("lookUp")
+					last_anim = "lookUp"
 			else:
 				# Idle pose animation
 				
@@ -100,7 +101,6 @@ func _process(delta):
 					if parent.isSuper and parent.animator.has_animation("idle_super"):
 						parent.animator.play("idle_super")
 					else:
-						
 						# loop through idle animations to see if there is an idle match
 						var matchIdleCheck = false
 						for i in playerIdles[parent.character]:
@@ -108,6 +108,14 @@ func _process(delta):
 								matchIdleCheck = true
 						
 						if parent.lastActiveAnimation != "idle" and !matchIdleCheck or !parent.animator.is_playing():
+							if last_anim == "crouch":
+								parent.animator.play("crouch_end")
+								await parent.animator.animation_finished
+								last_anim = ""
+							elif last_anim == "lookUp":
+								parent.animator.play("lookUp_end")
+								await parent.animator.animation_finished
+								last_anim = ""
 							parent.animator.play("idle")
 							# queue player specific idle animations
 							for i in playerIdles[parent.character]:
