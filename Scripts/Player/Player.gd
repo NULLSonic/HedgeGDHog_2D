@@ -196,7 +196,7 @@ var rachetScrollRight = false
 var rachetScrollTop = false
 var rachetScrollBottom = false
 
-var rotatableSprites = ["walk", "jog", "run", "dash", "peelOut", "hammerSwing"]
+var rotatableSprites = ["walk", "jog", "run", "dash", "peelOut", "hammerSwing", "spinDash", "roll"]
 var direction = scale.x
 
 # Ground speed is mostly used for timing and animations, there isn't any functionality to it.
@@ -1437,7 +1437,7 @@ func action_water_run_handle():
 
 func handle_animation_speed(gSpeed = groundSpeed):
 	match(animator.current_animation):
-		"walk", "run", "peelOut":
+		"walk", "jog", "run", "dash", "peelOut":
 			var duration = floor(max(0,8.0-abs(gSpeed/60.0)))
 			animator.speed_scale = (1.0/(duration+1.0))*(60.0/10.0)
 		"roll":
@@ -1445,7 +1445,7 @@ func handle_animation_speed(gSpeed = groundSpeed):
 			animator.speed_scale = (1.0/(duration+1.0))*(60.0/10.0)
 		"push":
 			var duration = floor(max(0,8.0-abs(gSpeed/60.0)) * 4)
-			animator.speed_scale = (1.0/(duration+1.0))*(60.0/10.0)
+			animator.speed_scale = (1.0/(duration+1.0))*(60.0/10.0) * 3
 		"spinDash": #animate at 60fps (fps were animated at 0.1 seconds)
 			animator.speed_scale = 60.0/10.0
 		"dropDash":

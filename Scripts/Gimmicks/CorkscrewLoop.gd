@@ -51,7 +51,7 @@ func _physics_process(_delta):
 					if (i.direction > 0):
 						i.animator.play("corkScrew")
 					else:
-						i.animator.play("corkScrewOffset")
+						i.animator.play("corkScrew")
 			
 			# Set vertical movement to 0 so player doesn't fall off
 			elif (i.currentState == i.STATES.CORKSCREW):

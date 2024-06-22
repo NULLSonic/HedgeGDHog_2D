@@ -152,23 +152,23 @@ func _process(delta):
 								parent.animator.play("edge_super")
 							# reverse edge
 							elif !getL and getR:
-								parent.animator.play("edge3")
-							# far edge
-							elif !getMEdge:
 								parent.animator.play("edge2")
+							## far edge
+							#elif !getMEdge:
+								#parent.animator.play("edge2")
 							# normal edge
 							else:
 								parent.animator.play("edge1")
 					
 		elif sign(parent.pushingWall) == sign(parent.movement.x) and parent.pushingWall != 0:
 			parent.animator.play("push")
-		elif(abs(parent.movement.x) < 4*60):
+		elif(abs(parent.movement.x) < 3.5*60):
 			parent.animator.play("walk")
 		elif(abs(parent.movement.x) < 6*60):
 			parent.animator.play("jog")
 		elif(abs(parent.movement.x) < 10*60):
 			parent.animator.play("run")
-		elif(abs(parent.movement.x) < 12*60):
+		elif(abs(parent.movement.x) < 12.5*60):
 			parent.animator.play("dash")
 		else:
 			parent.animator.play("peelOut")

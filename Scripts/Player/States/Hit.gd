@@ -2,7 +2,8 @@ extends PlayerState
 
 
 func _physics_process(delta):
-	parent.animator.play("hurt")
+	if !parent.lastActiveAnimation == "hurt":
+		parent.animator.play("hurt")
 	# gravity
 	parent.movement.y += parent.grv/GlobalFunctions.div_by_delta(delta)
 	
