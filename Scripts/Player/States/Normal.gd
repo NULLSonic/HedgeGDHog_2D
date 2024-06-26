@@ -116,10 +116,13 @@ func _process(delta):
 								parent.animator.play("lookUp_end")
 								await parent.animator.animation_finished
 								last_anim = ""
-							parent.animator.play("idle")
-							# queue player specific idle animations
-							for i in playerIdles[parent.character]:
-								parent.animator.queue(i)
+							if !Global.stageClearPhase == 0:
+								parent.animator.play("victory_idle")
+							else:
+								parent.animator.play("idle")
+								# queue player specific idle animations
+								for i in playerIdles[parent.character]:
+									parent.animator.queue(i)
 				
 				else:
 					match (parent.character):

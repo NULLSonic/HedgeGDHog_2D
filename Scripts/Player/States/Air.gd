@@ -9,6 +9,7 @@ var dropSpeed = [8,12] #the base speed for a drop dash, second is super
 var dropMax = [12,13]   #the top speed for a drop dash, second is super
 var dropTimer = 0
 
+var airCurled = false
 var lockDir = false
 
 func _ready():
@@ -136,9 +137,9 @@ func _physics_process(delta):
 		parent.movement.x -= ((parent.movement.x / 0.125) / 256)*60*delta
 	
 	# Mechanics if jumping
-	if (isJump):
+	if (isJump or parent.animator.current_animation == "roll" or parent.animator.current_animation == "dropDash"):
 		# Cut vertical movement if jump released
-		if !parent.any_action_held_or_pressed() and parent.movement.y < -parent.releaseJmp*60:
+		if !parent.any_action_held_or_pressed() and parent.movement.y < -parent.releaseJmp*60 and !airCurled:
 			parent.movement.y = -parent.releaseJmp*60
 		# Drop dash (for sonic / amy)
 		if parent.character == parent.CHARACTERS.SONIC or parent.character == parent.CHARACTERS.AMY:
@@ -157,8 +158,14 @@ func _physics_process(delta):
 				if parent.animator.current_animation == "dropDash" and parent.character == parent.CHARACTERS.SONIC:
 					parent.animator.play("roll")
 	else:
-		if parent.animator.has_animation("fall"):
-			parent.animator.play("fall")
+		airCurled = false
+		if !parent.animator.current_animation == "roll" and (parent.animator.current_animation == "walk" or parent.animator.current_animation == "jog" or parent.animator.current_animation == "run" or parent.animator.current_animation == "dash" or parent.animator.current_animation == "peelOut" or parent.animator.current_animation == "spinDash"):
+			if parent.animator.has_animation("fall"):
+				parent.animator.play("fall")
+		if (parent.any_action_pressed() and !parent.animator.current_animation == "roll"):
+				parent.sfx[3].play()
+				parent.animator.play("roll")
+				airCurled = true
 	
 		
 	# Change parent direction

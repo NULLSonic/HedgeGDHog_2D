@@ -196,7 +196,7 @@ var rachetScrollRight = false
 var rachetScrollTop = false
 var rachetScrollBottom = false
 
-var rotatableSprites = ["walk", "jog", "run", "dash", "peelOut", "hammerSwing", "spinDash", "roll"]
+var rotatableSprites = ["walk", "jog", "run", "dash", "peelOut", "hammerSwing", "spinDash", "roll", "fall"]
 var direction = scale.x
 
 # Ground speed is mostly used for timing and animations, there isn't any functionality to it.
@@ -1401,8 +1401,11 @@ func action_move(delta):
 				movement.x -= movement.x
 
 func action_jump(animation = "roll", airJumpControl = true, playSound=true):
-	animator.play(animation)
-	animator.advance(0)
+	if !Global.stageClearPhase == 0:
+		animator.play("victory_jump")
+	else:
+		animator.play(animation)
+		animator.advance(0)
 	movement.y = -jmp
 	if playSound:
 		sfx[0].play()

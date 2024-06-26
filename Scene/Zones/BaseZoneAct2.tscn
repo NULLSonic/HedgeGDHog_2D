@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bjavywoj00j1j"]
+[gd_scene load_steps=33 format=3 uid="uid://bjavywoj00j1j"]
 
 [ext_resource type="Script" path="res://Scripts/Level/Level.gd" id="2"]
 [ext_resource type="PackedScene" uid="uid://qs5dmtxxf1w1" path="res://Scene/Presentation/Title.tscn" id="2_l4fq6"]
@@ -22,6 +22,8 @@
 [ext_resource type="PackedScene" uid="uid://4q0hpddgto2k" path="res://Entities/Gimmicks/Spring.tscn" id="23_n1r7l"]
 [ext_resource type="Texture2D" uid="uid://b4cw5q2u4jyb8" path="res://Graphics/Gimmicks/HorizontalBarAlt.png" id="24_ipqgj"]
 [ext_resource type="Texture2D" uid="uid://bemwlrblbgn23" path="res://Graphics/Backgrounds/WorldsBackground.png" id="25"]
+[ext_resource type="PackedScene" uid="uid://bqj1smfkc5m7n" path="res://Entities/Gimmicks/SpeedBooster.tscn" id="25_k0fnq"]
+[ext_resource type="PackedScene" uid="uid://bg66ofhfkxsx6" path="res://Entities/Gimmicks/Bridge.tscn" id="26_qsifk"]
 [ext_resource type="PackedScene" uid="uid://c2esop5orct10" path="res://Entities/MainObjects/GoalPost.tscn" id="34"]
 [ext_resource type="PackedScene" uid="uid://dasp221fqgrno" path="res://Entities/Obstacles/Platform.tscn" id="38"]
 
@@ -140,6 +142,7 @@ layer_4/tile_data = PackedInt32Array()
 
 [node name="GoalPost" parent="Entities" instance=ExtResource("34")]
 position = Vector2(3280, 416)
+runOff = false
 
 [node name="Rings" type="Node" parent="Entities"]
 
@@ -334,10 +337,6 @@ allowDownwardDetach = true
 drawLeftAnchor = false
 drawRightAnchor = false
 
-[node name="Spring" parent="." instance=ExtResource("23_n1r7l")]
-z_index = -99
-position = Vector2(938, 360)
-
 [node name="HorizontalBar2" parent="." instance=ExtResource("22_ethvu")]
 position = Vector2(3044, 893)
 width = 60
@@ -383,12 +382,35 @@ position = Vector2(2325, 501)
 allowBrake = true
 
 [node name="HorizontalBar8" parent="." instance=ExtResource("22_ethvu")]
-position = Vector2(2584, 415)
+position = Vector2(2584, 231)
 spriteTexture = ExtResource("24_ipqgj")
 width = 520
 shimmySpeed = 180.0
 drawRightAnchor = false
 swingContactSpeed = 3000.0
+
+[node name="Spring4" parent="." instance=ExtResource("23_n1r7l")]
+z_index = -1
+position = Vector2(336, 775)
+type = 1
+
+[node name="SpeedBooster" parent="." instance=ExtResource("25_k0fnq")]
+position = Vector2(936, 344)
+boostDirection = 1
+
+[node name="Bridge" parent="." instance=ExtResource("26_qsifk")]
+position = Vector2(968, 360)
+length = 8
+smoothDrop = true
+
+[node name="Bridge2" parent="." instance=ExtResource("26_qsifk")]
+position = Vector2(1592, 440)
+length = 21
+smoothDrop = true
+
+[node name="Bridge3" parent="." instance=ExtResource("26_qsifk")]
+position = Vector2(2216, 440)
+length = 56
 
 [connection signal="body_entered" from="Entities/AdvancedPlatform" to="Entities/AdvancedPlatform" method="_on_body_entered"]
 [connection signal="body_exited" from="Entities/AdvancedPlatform" to="Entities/AdvancedPlatform" method="_on_body_exited"]

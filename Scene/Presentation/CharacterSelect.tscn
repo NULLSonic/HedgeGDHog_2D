@@ -23,7 +23,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [Rect2(731, 9, 24, 39), Rect2(683, 9, 24, 39), Rect2(731, 9, 24, 39), Rect2(683, 9, 24, 39)]
+"values": [Rect2(821, 488, 40, 40), Rect2(869, 488, 40, 40), Rect2(917, 488, 40, 40), Rect2(869, 488, 40, 40)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -172,7 +172,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="CharacterOrigin" type="Node2D" parent="UI/Labels"]
-position = Vector2(160, 97)
+position = Vector2(212, 97)
 
 [node name="Sonic" type="Sprite2D" parent="UI/Labels/CharacterOrigin"]
 z_index = 3
@@ -239,6 +239,7 @@ offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 8
 text = "Sonic and Tails"
 horizontal_alignment = 1
 vertical_alignment = 2
@@ -254,6 +255,7 @@ offset_right = 59.5
 offset_bottom = 26.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 8
 text = "Base zone act 1"
 vertical_alignment = 1
 uppercase = true

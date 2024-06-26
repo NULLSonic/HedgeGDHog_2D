@@ -1,5 +1,6 @@
 extends StaticBody2D
 var getCam = null
+var player = null
 
 @onready var screenXSize = get_viewport_rect().size.x
 
@@ -10,7 +11,7 @@ var timerActive = false
 var timer = 180.0/60.0
 
 func _physics_process(delta):
-	
+	player = Global.players[0]
 	
 	if timerActive and timer > 0:
 			# every 8/60 steps spawn an animal in the animal ground with an alarm of 12/60
@@ -50,18 +51,16 @@ func _physics_process(delta):
 func activate():
 	# check if to clear level
 	if Global.stageClearPhase == 0:
+		Global.main.sceneCanPause = false
 		$Animator.play("Open")
 		$Explode.play()
 		# set global stage clear phase to 1, 1 is used to stop the timer (see HUD script)
 		Global.stageClearPhase = 1
-		
 		# set player camera limits
 		for i in Global.players:
 			# Camera limit set
 			i.limitLeft = global_position.x -screenXSize/2
 			i.limitRight = global_position.x +screenXSize/2
-
-
 
 func spawn_animals():
 	# create animals

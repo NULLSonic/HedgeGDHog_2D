@@ -2,6 +2,8 @@ extends Sprite2D
 var getCam = null
 var player = null
 
+@export var runOff: bool = true
+
 @onready var screenXSize = GlobalFunctions.get_screen_size().x
 
 func _physics_process(_delta):
@@ -9,6 +11,7 @@ func _physics_process(_delta):
 	if Global.players[0].global_position.x > global_position.x and Global.players[0].global_position.y <= global_position.y and Global.stageClearPhase == 0:
 		# set player variable
 		player = Global.players[0]
+		Global.main.sceneCanPause = false
 		
 		# Camera limit set
 		player.limitLeft = global_position.x -screenXSize/2
@@ -35,21 +38,22 @@ func _physics_process(_delta):
 		# after finishing spin, set stage clear to 2 and disable the players controls,
 		# stage clear is set to 2 so that the level ending doesn't start prematurely but we can track where the player is
 		Global.stageClearPhase = 2
-		player.playerControl = -1
-		# put states under player in here if the state could end up getting the player soft locked
-		var stateCancelList = [player.STATES.WALLCLIMB]
-		for i in stateCancelList:
-			if i == player.currentState:
-				player.set_state(player.STATES.AIR)
-		# set inputs to right
-		player.inputs[player.INPUTS.XINPUT] = 1
-		player.inputs[player.INPUTS.YINPUT] = 0
-		player.inputs[player.INPUTS.ACTION] = 0
-		# make partner move too
-		if player.get("partner") != null:
-			player.partner.inputs[player.INPUTS.XINPUT] = 1
-			player.partner.inputs[player.INPUTS.YINPUT] = 0
-			player.partner.inputs[player.INPUTS.ACTION] = 0
+		if runOff:
+			player.playerControl = -1
+			# put states under player in here if the state could end up getting the player soft locked
+			var stateCancelList = [player.STATES.WALLCLIMB]
+			for i in stateCancelList:
+				if i == player.currentState:
+					player.set_state(player.STATES.AIR)
+			# set inputs to right
+			player.inputs[player.INPUTS.XINPUT] = 1
+			player.inputs[player.INPUTS.YINPUT] = 0
+			player.inputs[player.INPUTS.ACTION] = 0
+			# make partner move too
+			if player.get("partner") != null:
+				player.partner.inputs[player.INPUTS.XINPUT] = 1
+				player.partner.inputs[player.INPUTS.YINPUT] = 0
+				player.partner.inputs[player.INPUTS.ACTION] = 0
 	
 	# stage clear settings
 	if Global.stageClearPhase != 0:
@@ -58,9 +62,17 @@ func _physics_process(_delta):
 			getCam.global_position.x = global_position.x
 		# if player greater then screen and stage clear phase is 2 then activate the stage clear sequence
 		if player:
-			if player.global_position.x > global_position.x+(screenXSize/2) and player.movement.x >= 0 and Global.stageClearPhase == 2:
-				# stage clear won't work is stage clear phase isn't 0
-				Global.stageClearPhase = 0
-				Global.stage_clear()
-				# set stage clear to 3, this will activate the HUD sequence
-				Global.stageClearPhase = 3
+			if runOff:
+				if player.global_position.x > global_position.x+(screenXSize/2) and player.movement.x >= 0 and Global.stageClearPhase == 2:
+					# stage clear won't work is stage clear phase isn't 0
+					Global.stageClearPhase = 0
+					Global.stage_clear()
+					# set stage clear to 3, this will activate the HUD sequence
+					Global.stageClearPhase = 3
+			else: 
+				if Global.stageClearPhase == 2:
+					# stage clear won't work is stage clear phase isn't 0
+					Global.stageClearPhase = 0
+					Global.stage_clear()
+					# set stage clear to 3, this will activate the HUD sequence
+					Global.stageClearPhase = 3
