@@ -13,7 +13,9 @@ var actionPressed = false
 var playerIdles = [
 # SONIC
 ["idle1","idle2","idle2","idle2","idle2","idle3",
-"idle4","idle4","idle5"],
+"idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4",
+"idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4",
+"idle5"],
 # Tails
 ["idle1"], # Note: Tails idle loops on idle one, to add more idles make sure to disable his idle1 loop
 # Knuckles
@@ -108,15 +110,15 @@ func _process(delta):
 								matchIdleCheck = true
 						
 						if parent.lastActiveAnimation != "idle" and !matchIdleCheck or !parent.animator.is_playing():
-							if last_anim == "crouch":
+							if last_anim == "crouch" and parent.animator.has_animation("crouch_end"):
 								parent.animator.play("crouch_end")
 								await parent.animator.animation_finished
 								last_anim = ""
-							elif last_anim == "lookUp":
+							elif last_anim == "lookUp"and parent.animator.has_animation("lookUp_end"):
 								parent.animator.play("lookUp_end")
 								await parent.animator.animation_finished
 								last_anim = ""
-							if !Global.stageClearPhase == 0:
+							if !Global.stageClearPhase == 0 and parent.animator.has_animation("victory_idle"):
 								parent.animator.play("victory_idle")
 							else:
 								parent.animator.play("idle")
@@ -167,12 +169,8 @@ func _process(delta):
 			parent.animator.play("push")
 		elif(abs(parent.movement.x) < 3.5*60):
 			parent.animator.play("walk")
-		elif(abs(parent.movement.x) < 6*60):
-			parent.animator.play("jog")
 		elif(abs(parent.movement.x) < 10*60):
 			parent.animator.play("run")
-		elif(abs(parent.movement.x) < 12.5*60):
-			parent.animator.play("dash")
 		else:
 			parent.animator.play("peelOut")
 	

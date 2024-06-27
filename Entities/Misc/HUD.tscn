@@ -818,9 +818,9 @@ color = Color(0, 0, 0, 1)
 layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -146.5
+offset_left = 65.5
 offset_top = -203.0
-offset_right = 42.5
+offset_right = 254.5
 size_flags_stretch_ratio = 0.0
 texture = ExtResource("7_ccygi")
 stretch_mode = 2
@@ -855,7 +855,7 @@ vframes = 2
 [node name="PatternLeft" type="Control" parent="LevelCard"]
 anchors_preset = 0
 anchor_bottom = 1.0
-offset_bottom = 15072.0
+offset_bottom = 15552.0
 
 [node name="PatternLeft" type="TextureRect" parent="LevelCard/PatternLeft"]
 layout_mode = 1
@@ -879,7 +879,7 @@ anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_top = -32.0
-offset_bottom = 14784.0
+offset_bottom = 15264.0
 
 [node name="PatternRight" type="TextureRect" parent="LevelCard/RightRatio/PatternRight"]
 layout_mode = 1
@@ -888,9 +888,9 @@ anchor_left = 1.0
 anchor_top = 0.003
 anchor_right = 1.0
 anchor_bottom = 0.003
-offset_top = -13.168
-offset_right = 6880.0
-offset_bottom = 242.832
+offset_top = 32.0
+offset_right = 7040.0
+offset_bottom = 288.0
 grow_horizontal = 0
 grow_vertical = 2
 texture = ExtResource("10_xpi0a")

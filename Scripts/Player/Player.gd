@@ -1231,7 +1231,7 @@ func land_floor():
 
 
 # clean animation
-func _on_PlayerAnimation_animation_started(anim_name):
+func _on_PlayerAnimation_animation_started(_anim_name):
 	if (sprite != null):
 		sprite.flip_v = false
 		sprite.offset = defaultSpriteOffset
