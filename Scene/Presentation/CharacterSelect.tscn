@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://c4e1wv2sxs1gm"]
 
-[ext_resource type="Texture2D" uid="uid://4lhg0ovh1pe8" path="res://Graphics/Players/Sonic.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://clyebyae0nnne" path="res://Graphics/Players/Sonic.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://bemwlrblbgn23" path="res://Graphics/Backgrounds/WorldsBackground.png" id="2"]
 [ext_resource type="FontFile" uid="uid://ml62eqfe7avn" path="res://Graphics/Fonts/small_font.png" id="3"]
 [ext_resource type="Texture2D" uid="uid://c05fsbnx0p7xf" path="res://Graphics/Players/Tails.png" id="4"]

@@ -10,7 +10,7 @@ func _ready():
 		# delete orb reference
 		$OrbReference.queue_free()
 
-func _process(delta):
+func _process(_delta):
 	if !Engine.is_editor_hint():
 		# beam flashing (only flash if active)
 		$Beam.visible = (!$Beam.visible and active)
@@ -54,7 +54,8 @@ func _physics_process(delta):
 				Global.players[0].translate = false
 				# give player a bit of velocity in that direction
 				Global.players[0].movement.y = -30
-				
+				Global.players[0].airTimer = Global.players[0].defaultAirTime
+
 		else: #shift player by default
 			Global.players[0].global_position.y -= 30*delta
 
@@ -68,3 +69,5 @@ func activateBeam():
 		Global.players[0].animator.play("idle")
 		Global.players[0].groundSpeed = 60*4
 		Global.players[0].movement.x = 0
+		Global.players[0].airTimer = $BeamAnimator.current_animation_length + 30
+		

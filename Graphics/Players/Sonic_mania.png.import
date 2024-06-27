@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://whvafg05m4gh"
-path="res://.godot/imported/Sonic_1.png-6a476e72af2db72bff0b27d52d83fb0d.ctex"
+uid="uid://d3k2a7mrniiho"
+path="res://.godot/imported/Sonic_mania.png-73650d2f25b9d64a298839f2b0e79f05.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Graphics/Players/Sonic_1.png"
-dest_files=["res://.godot/imported/Sonic_1.png-6a476e72af2db72bff0b27d52d83fb0d.ctex"]
+source_file="res://Graphics/Players/Sonic_mania.png"
+dest_files=["res://.godot/imported/Sonic_mania.png-73650d2f25b9d64a298839f2b0e79f05.ctex"]
 
 [params]
 
