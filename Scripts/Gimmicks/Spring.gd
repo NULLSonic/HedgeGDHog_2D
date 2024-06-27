@@ -3,6 +3,7 @@ extends StaticBody2D
 
 @export_enum("Yellow", "Red") var type = 0
 @export_enum("Up", "Down", "Right", "Left", "Diagonal Up Right", "Diagonal Up Left", "Diagonal Down Right", "Diagonal Down Left") var springDirection = 0
+@export var force = 10
 var hitDirection = Vector2.UP
 var animList = ["SpringUp","SpringRight","SpringUpLeft","SpringUpRight"]
 var animID = 0
@@ -10,7 +11,7 @@ var dirMemory = springDirection
 var typeMemory = type
 var speed = [10,16]
 
-var springTextures = [preload("res://Graphics/Gimmicks/springs_yellow.png"),preload("res://Graphics/Gimmicks/springs_red.png")]
+var springTextures = [preload("res://Graphics/Gimmicks/springs/yellow.png"),preload("res://Graphics/Gimmicks/springs/red.png")]
 
 @export var springSound = preload("res://Audio/SFX/Gimmicks/Springs.wav")
 
