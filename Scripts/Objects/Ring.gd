@@ -42,11 +42,11 @@ func _physics_process(delta):
 		#relative positions
 		var sx = sign(magnet.global_position.x - global_position.x)
 		var sy = sign(magnet.global_position.y - global_position.y)
-		
+
 		#check relative movement
 		var tx = int(sign(velocity.x) == sx)
 		var ty = int(sign(velocity.y) == sy)
-		
+
 		#add to speed
 		velocity.x += (ringacceleration[tx] * sx)/GlobalFunctions.div_by_delta(delta)
 		velocity.y += (ringacceleration[ty] * sy)/GlobalFunctions.div_by_delta(delta)
@@ -54,8 +54,8 @@ func _physics_process(delta):
 		if magnetShape.disabled:
 			scattered = true
 		#"ringacceleration" would be an array, where: [0] = 0.75 [1] = 0.1875
-		
-		
+
+
 
 func _on_Hitbox_body_entered(body):
 	if (player != body):

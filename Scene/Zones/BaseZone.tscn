@@ -1553,7 +1553,15 @@ position = Vector2(288, 304)
 item = 4
 
 [node name="Monitor2" parent="Monitors" instance=ExtResource("8_8svvy")]
-position = Vector2(408, 672)
+position = Vector2(352, 672)
+
+[node name="Monitor3" parent="Monitors" instance=ExtResource("8_8svvy")]
+position = Vector2(400, 672)
+item = 11
+
+[node name="Monitor17" parent="Monitors" instance=ExtResource("8_8svvy")]
+position = Vector2(576, 672)
+item = 10
 
 [node name="Monitor4" parent="Monitors" instance=ExtResource("8_8svvy")]
 position = Vector2(3136, 368)

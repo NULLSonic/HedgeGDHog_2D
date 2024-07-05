@@ -27,7 +27,7 @@ func _ready():
 	# skip if scene was loaded
 	if wasLoaded:
 		return false
-	
+
 	if setDefaultLeft:
 		Global.hardBorderLeft  = defaultLeftBoundry
 	if setDefaultRight:
@@ -36,9 +36,9 @@ func _ready():
 		Global.hardBorderTop    = defaultTopBoundry
 	if setDefaultBottom:
 		Global.hardBorderBottom  = defaultBottomBoundry
-	
+
 	level_reset_data(false)
-	
+
 	wasLoaded = true
 
 # used for stage starts, also used for returning from special stages
@@ -55,7 +55,7 @@ func level_reset_data(playCard = true):
 	# set next zone
 	if nextZone != null:
 		Global.nextZone = nextZone
-	
+
 	# set pausing to true
 	if Global.main != null:
 		Global.main.sceneCanPause = true

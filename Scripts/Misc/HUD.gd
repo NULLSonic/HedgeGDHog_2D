@@ -42,13 +42,13 @@ func _ready():
 	# error prevention
 	if !Global.is_main_loaded:
 		return false
-	
+
 	# stop timer from counting during stage start up and set global hud to self
 	Global.timerActive = false
 	Global.hud = self
 	# Set character Icon
 	$LifeCounter/Icon.frame = Global.PlayerChar1-1
-	
+
 	# play level card routine if level card is true
 	if playLevelCard:
 		# set level card
@@ -97,23 +97,23 @@ func _ready():
 func _process(delta):
 	# set score string to match global score with leading 0s
 	scoreText.text = "%6d" % Global.score
-	
+
 	# clamp time so that it won't go to 10 minutes
 	var timeClamp = min(Global.levelTime,Global.maxTime-1)
 	# set time text, format it to have a leadin 0 so that it's always 2 digits
 	#timeText.text = "%2d" % floor(timeClamp/60) + ":" + str(fmod(floor(timeClamp),60)).pad_zeros(2)
 	# uncomment below (and remove above line) for mili seconds
 	timeText.text = "%2d" % floor(timeClamp/60) + ":" + str(fmod(floor(timeClamp),60)).pad_zeros(2) + ":" + str(fmod(floor(timeClamp*100),100)).pad_zeros(2)
-	
+
 	# cehck that there's player, if there is then track the focus players ring count
 	if (Global.players.size() > 0):
 		ringText.text = "%3d" % Global.players[focusPlayer].rings
-	
+
 	# track lives with leading 0s
 	lifeText.text = "%2d" % Global.lives
-	
+
 	# Water Overlay
-	
+
 	# cehck that this level has water
 	if Global.waterLevel != null:
 		# get current camera
@@ -124,7 +124,7 @@ func _process(delta):
 		# scale water level to match the visible screen
 		$Water/WaterOverlay.scale.y = clamp(Global.waterLevel-$Water/WaterOverlay.position.y,0,get_viewport().size.y)
 		$Water/WaterOverlay.visible = true
-		
+
 		# Water Overlay Elec flash
 		if (Global.players.size() > 0):
 			# loop through players
@@ -151,8 +151,8 @@ func _process(delta):
 	else:
 		# disable water overlay
 		$Water/WaterOverlay.visible = false
-	
-	
+
+
 	# HUD flashing text
 	if flashTimer < 0:
 		flashTimer = 0.1
@@ -169,18 +169,18 @@ func _process(delta):
 			$Counters/Text/Time.visible = false
 	elif !get_tree().paused:
 		flashTimer -= delta
-	
+
 	# stage clear handling
 	if Global.stageClearPhase > 2:
 		# initialize stage clear sequence
 		if !isStageEnding:
 			isStageEnding = true
-			
+
 			# show level clear elements
 			$LevelClear.visible = true
 			$LevelClear/Tally/ScoreNumber.text = "%6d" % totalBonus
 			$LevelClear/Animator.play("LevelClear")
-			
+
 			# set bonuses
 			ringBonus = floor(Global.players[focusPlayer].rings)*100
 			$LevelClear/Tally/RingNumbers.text = "%6d" % ringBonus
@@ -224,7 +224,7 @@ func _process(delta):
 			await $LevelClear/CounterWait.timeout
 			# after clear, change to next level in Global.nextZone (you can set the next zone in the level script node)
 			Global.main.change_scene_to_file(Global.nextZone,"FadeOut","FadeOut",1)
-	
+
 	# game over sequence
 	elif Global.gameOver and !gameOver:
 		# set game over to true so this doesn't loop
@@ -257,7 +257,7 @@ func _process(delta):
 func _on_CounterCount_timeout():
 	# play counter sound
 	$LevelClear/Counter.play()
-	
+
 	# decrease bonuses in order, if time bonus not 0 then count time down, then do the same for rings
 	# if you add other bonuses (like perfect bonus) you'll want to add it to the end of the sequence before the end
 	if timeBonus > 0:
@@ -290,4 +290,4 @@ func _on_CounterCount_timeout():
 	$LevelClear/Tally/TimeNumbers.text = "%6d" % timeBonus
 	$LevelClear/Tally/RingNumbers.text = "%6d" % ringBonus
 	$LevelClear/Tally/CoolText/CoolNumbers.text = "%6d" % coolBonus
-	
+

@@ -11,7 +11,7 @@ func _process(delta):
 		visible = global_position.y > Global.waterLevel
 	else:
 		visible = false
-	
+
 	# Since visibility is tied to water level, bubbles only generate when below water level
 	if visible:
 		if bubbleTimer > 0:
@@ -24,7 +24,7 @@ func _process(delta):
 			bubble.bubbleType = int(round(randf()))
 			add_child(bubble)
 			bubble.global_position = global_position
-		
+
 		# Big bubble generator
 		if bigBubbleTimer > 0:
 			bigBubbleTimer -= delta
@@ -36,4 +36,4 @@ func _process(delta):
 			bubble.bubbleType = 2
 			add_child(bubble)
 			bubble.global_position = global_position
-		
+

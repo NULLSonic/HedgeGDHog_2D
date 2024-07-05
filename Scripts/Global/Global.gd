@@ -70,7 +70,7 @@ var setWaterLevel = 0 # used by other nodes to change the water level
 var waterScrollSpeed = 64 # used by other nodes for how fast to move the water to different levels
 
 # characters (if you want more you should add one here, see the player script too for more settings)
-enum CHARACTERS {NONE,SONIC,TAILS,KNUCKLES,AMY}
+enum CHARACTERS {NONE,SONIC,TAILS,KNUCKLES,MIGHTY,RAY,AMY}
 var PlayerChar1 = CHARACTERS.SONIC
 var PlayerChar2 = CHARACTERS.NONE
 
@@ -108,7 +108,7 @@ func _ready():
 	soundChannel.bus = "SFX"
 	# load game data
 	load_settings()
-	
+
 	# check if main scene is root (prevents crashing if you started from another scene)
 	if !(get_tree().current_scene is MainGameScene):
 		get_tree().paused = true
@@ -130,7 +130,7 @@ func _process(delta):
 	# count global timer if game isn't paused
 	if !get_tree().paused:
 		globalTimer += delta
-	
+
 # reset values, self explanatory, put any variables to their defaults in here
 func reset_values():
 	lives = 3
@@ -188,7 +188,7 @@ func save_settings():
 	# save settings
 	file.set_value("Volume","SFX",AudioServer.get_bus_volume_db(AudioServer.get_bus_index("SFX")))
 	file.set_value("Volume","Music",AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music")))
-	
+
 	file.set_value("Resolution","Zoom",zoomSize)
 	file.set_value("Resolution","FullScreen",((get_window().mode == Window.MODE_EXCLUSIVE_FULLSCREEN) or (get_window().mode == Window.MODE_FULLSCREEN)))
 	# save config and close
@@ -200,17 +200,17 @@ func load_settings():
 	var err = file.load("user://Settings.cfg")
 	if err != OK:
 		return false # Return false as an error
-	
+
 	if file.has_section_key("Volume","SFX"):
 		AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"),file.get_value("Volume","SFX"))
-	
+
 	if file.has_section_key("Volume","Music"):
 		AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"),file.get_value("Volume","Music"))
-	
+
 	if file.has_section_key("Resolution","Zoom"):
 		zoomSize = file.get_value("Resolution","Zoom")
 		get_window().set_size(get_viewport().get_visible_rect().size*zoomSize)
-	
+
 	if file.has_section_key("Resolution","FullScreen"):
 		get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN if (file.get_value("Resolution","FullScreen")) else Window.MODE_WINDOWED
-	
+

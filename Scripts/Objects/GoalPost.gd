@@ -5,6 +5,7 @@ var player = null
 @export var runOff: bool = true
 
 @onready var screenXSize = GlobalFunctions.get_screen_size().x
+var spinTimer = 12
 
 func _physics_process(_delta):
 	# check if player.x position is greater then the post
@@ -12,27 +13,25 @@ func _physics_process(_delta):
 		# set player variable
 		player = Global.players[0]
 		Global.main.sceneCanPause = false
-		
+
 		# Camera limit set
 		player.limitLeft = global_position.x -screenXSize/2
 		player.limitRight = global_position.x +(screenXSize/2)+48
 		getCam = player.camera
-		
+
 		# play spinner
-		$Animator.play("Spinner")
+		$Animator.play("spin")
 		match player.character:
 			1:
 				$Animator.queue("Tails")
 			2:
 				$Animator.queue("Knuckles")
-			3:
-				$Animator.queue("Amy")
 			_:
 				$Animator.queue("Sonic")
 		$GoalPost.play()
 		# set global stage clear phase to 1, 1 is used to stop the timer (see HUD script)
 		Global.stageClearPhase = 1
-		
+
 		# wait for spinner to finish
 		await $Animator.animation_finished
 		# after finishing spin, set stage clear to 2 and disable the players controls,
@@ -54,7 +53,7 @@ func _physics_process(_delta):
 				player.partner.inputs[player.INPUTS.XINPUT] = 1
 				player.partner.inputs[player.INPUTS.YINPUT] = 0
 				player.partner.inputs[player.INPUTS.ACTION] = 0
-	
+
 	# stage clear settings
 	if Global.stageClearPhase != 0:
 		# lock camera to self
@@ -69,7 +68,7 @@ func _physics_process(_delta):
 					Global.stage_clear()
 					# set stage clear to 3, this will activate the HUD sequence
 					Global.stageClearPhase = 3
-			else: 
+			else:
 				if Global.stageClearPhase == 2:
 					# stage clear won't work is stage clear phase isn't 0
 					Global.stageClearPhase = 0

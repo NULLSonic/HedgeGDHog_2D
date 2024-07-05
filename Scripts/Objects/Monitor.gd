@@ -7,22 +7,27 @@ var yspeed = 0
 var playerTouch = null
 var isActive = true
 @export_enum("Ring", "Speed Shoes", "Invincibility", "Shield", "Elec Shield", "Fire Shield",
-"Bubble Shield", "Super", "Blue Ring", "Boost", "1up") var item = 0
+"Bubble Shield", "Super", "Blue Ring", "Boost", "Hurt", "1up") var item = 0
 var Explosion = preload("res://Entities/Misc/BadnickSmoke.tscn")
-
+var rng = RandomNumberGenerator.new()
 
 func _ready():
 	# set frame
-	$Item.frame = item+2
+	$Item.frame = item
+	$Monitor/bg.play("default")
+	$Monitor/static.play("default")
 	# Life Icon (life icons are a special case)
-	if item == 10 and !Engine.is_editor_hint():
+	if item == 11 and !Engine.is_editor_hint():
 		$Item.frame = item+1+Global.PlayerChar1
-	
+
 
 func _process(_delta):
 	# update for editor
+	$Item.frame = item
+	if item == 11 and !Engine.is_editor_hint():
+		$Item.frame = item-1+Global.PlayerChar1
 	if (Engine.is_editor_hint()):
-		$Item.frame = item+2
+		$Item.frame = item
 
 func destroy():
 	# skip if not activated
@@ -32,14 +37,16 @@ func destroy():
 	var explosion = Explosion.instantiate()
 	get_parent().add_child(explosion)
 	explosion.global_position = global_position
-	
+
+	var randomAnim = round(rng.randf_range(1, 3))
 	# deactivate
 	isActive = false
-	
+
 	# set item to have a high Z index so it overlays a lot
 	$Item.z_index += 1000
 	# play destruction animation
 	$Animator.play("DestroyMonitor")
+	$Monitor.play("Busted_" + str(randomAnim))
 	$SFX/Destroy.play()
 	# wait for animation to finish
 	await $Animator.animation_changed
@@ -75,7 +82,9 @@ func destroy():
 			playerTouch.rings += 50
 			if !playerTouch.get("isSuper"):
 				playerTouch.set_state(playerTouch.STATES.SUPER)
-		10: # 1up
+		10: # Hurt
+			playerTouch.hit_player()
+		11: # 1up
 			Global.life.play()
 			Global.lives += 1
 			Global.effectTheme.volume_db = -100
@@ -113,7 +122,7 @@ func physics_collision(body, hitVector):
 		# if they are then destroy
 		elif body.playerControl == 1 and body.currentState != body.STATES.SPINDASH:
 			body.movement.y = -abs(body.movement.y)
-			
+
 			if body.currentState == body.STATES.ROLL:
 				body.movement.y = 0
 			body.ground = false

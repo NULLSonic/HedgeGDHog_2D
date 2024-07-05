@@ -152,9 +152,9 @@ disabled = true
 
 [node name="Spring" type="Sprite2D" parent="."]
 texture = ExtResource("2_uuwwh")
-offset = Vector2(0.5, 0)
+offset = Vector2(0, -1)
 region_enabled = true
-region_rect = Rect2(1, 0, 31, 16)
+region_rect = Rect2(64, 37, 32, 17)
 
 [node name="SpringAnimator" type="AnimationPlayer" parent="."]
 libraries = {
