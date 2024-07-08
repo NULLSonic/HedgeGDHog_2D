@@ -7,6 +7,7 @@ var player
 var magnet = null
 var magnetShape = null
 var ringacceleration = [0.75,0.1875]
+var rng = RandomNumberGenerator.new()
 var Particle = preload("res://Entities/Misc/GenericParticle.tscn")
 
 
@@ -25,10 +26,15 @@ func _process(delta):
 			z_index = 1
 			# get ring to player
 			player.get_ring()
-			var part = Particle.instantiate()
-			get_parent().add_child(part)
-			part.global_position = global_position
-			part.play("RingSparkle")
+			for n in 2:
+				var part = Particle.instantiate()
+				get_parent().add_child(part)
+				var randomPosX = rng.randf_range(-8, 8)
+				var randomPosY = rng.randf_range(-8, 8)
+				part.global_position = Vector2(global_position.x + randomPosX, global_position.y + randomPosY)
+				var randomAnim = round(rng.randf_range(1, 3))
+				part.play("RingSparkle" + str(randomAnim))
+
 			queue_free()
 
 func _physics_process(delta):
