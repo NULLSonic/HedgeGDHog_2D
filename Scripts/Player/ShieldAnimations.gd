@@ -14,7 +14,7 @@ func _on_Shields_frame_changed():
 			z_index = 6
 			offset = Vector2.ZERO
 			scale = Vector2(1,1)
-			
+
 			if (material.blend_mode != 1):#BLEND_MODE_ADD):
 				material.blend_mode = 1#BLEND_MODE_ADD
 		"Bubble":

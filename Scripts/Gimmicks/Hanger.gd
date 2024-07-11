@@ -74,14 +74,14 @@ func get_player(index):
 	if players.size() >= index + 1:
 		return players[index][0]
 	return null
-	
+
 # Use to get the player contact position at the index of the array.
 # Returns the contact position if the index isn't out of bounds, otherwise returns null.
 func get_player_contact(index):
 	if players.size() >= index + 1:
 		return players[index][1]
 	return null
-	
+
 func set_player_contact(index, value):
 	if players.size() >= index + 1:
 		players[index][1] = value
@@ -109,7 +109,7 @@ func is_player_disconnect_time_elapsed(index):
 		return false
 	if players[index][2] == null:
 		return true
-		
+
 	var curTime = Time.get_ticks_msec()
 	var elapsedTime = curTime - players[index][2]
 	if elapsedTime > _CONTACT_TIME_LIMIT:
@@ -120,7 +120,7 @@ func is_player_disconnect_time_elapsed(index):
 # Returns the count of players contacting with the hanger. Used by external scripts.
 func get_player_contacting_count():
 	return _playerContacts
-	
+
 func physics_process_connected(_delta, player, index):
 	if player.ground:
 		disconnect_grab(player, index, false)
@@ -138,38 +138,38 @@ func physics_process_connected(_delta, player, index):
 	# set the animation and convert out of any unusual states into AIR.
 	player.animator.play("hang")
 	player.set_state(player.STATES.AIR)
-	
+
 	# Perform just the functional parts  of the connect script that move the
 	# player into position.
 	var getPose = (global_position+get_player_contact(index).rotated(rotation) + Vector2(0.0, player.currentHitbox.NORMAL.y / 2.0)).round()
-		
+
 	# verify position change won't clip into objects
 	if !player.test_move(player.global_transform,getPose-player.global_position):
 		player.global_position = getPose
 		player.movement = Vector2.ZERO
-				
+
 	player.cam_update()
-	
+
 func physics_process_disconnected(_delta, player, index):
 	# we use parent only for picking up off ground
 	var parent = get_parent()
 	if (!groundPickup and player.ground):
 		return
-		
+
 	if !check_grab(player, index):
 		return
 
 	# If it's going to pick a player up off the ground, it has to be moving upwards.
 	if player.ground and parent.movement.y > 0:
 		return
-	
+
 	# XXX This a Tails centric hack right now. I don't like it. It makes Tails
 	# move upwards to avoid disconnecting immediately.
 	if player.ground:
 		player.set_state(player.STATES.AIR)
 		player.global_position.y -= 6
 		parent.global_position.y -= 6
-		
+
 	connect_grab(player, index)
 
 	pass
@@ -178,10 +178,10 @@ func physics_process_disconnected(_delta, player, index):
 # disconnecting grabs if the player contacts the ground while grabbing.
 func _physics_process(delta):
 	_playerContacts = 0
-	
+
 	for index in players.size():
 		var player = get_player(index)
-		
+
 		if get_player_contact(index) != null:
 			_playerContacts += 1
 			physics_process_connected(delta, player, index)
@@ -200,7 +200,7 @@ func connect_grab(player, index):
 	# Iterate player contacts by one. Only really used by Tails fly-carry right now, but who knows,
 	# maybe it could be part of a weight mechanic for some gimmick later.
 	_playerContacts += 1
-	
+
 	# set contact point (start grab)
 	if get_player_contact(index) == null:
 		$Grab.play()
@@ -210,19 +210,19 @@ func connect_grab(player, index):
 			set_player_contact(index, Vector2(player.global_position.x-global_position.x,calcDistance))
 		else:
 			set_player_contact(index, Vector2(0,calcDistance))
-				
+
 	var getPose = (global_position+get_player_contact(index).rotated(rotation)).round()
-		
+
 	# verify position change won't clip into objects
 	#if !player.test_move(player.global_transform,getPose-player.global_position):
 	player.global_position = getPose
 	player.movement = Vector2.ZERO
-				
+
 	player.cam_update()
 
 	# lock player direction if that toggle is set.
 	if lockPlayerDirection:
-		player.stateList[player.STATES.AIR].lockDir = true	
+		player.stateList[player.STATES.AIR].lockDir = true
 
 func disconnect_grab(player, index, deliberate, jumpUpwards=false):
 	# Don't bother disconnecting if they aren't already connected.
@@ -231,10 +231,10 @@ func disconnect_grab(player, index, deliberate, jumpUpwards=false):
 
 	#print("invoking set_player_disconnect_time")
 	set_player_disconnect_time(index)
-	
+
 	player.animator.play("roll")
 	player.set_state(player.STATES.JUMP)
-	
+
 	if deliberate:
 		if (jumpUpwards):
 			player.movement.y = -player.jmp/2
@@ -251,11 +251,11 @@ func disconnect_grab(player, index, deliberate, jumpUpwards=false):
 	player.poleGrabID = null
 	# unset the contact point for the player XXX want to switch to mutator function later
 	set_player_contact(index, null)
-	
+
 	# lower playerContacts value one... I guess in case anything else accesses this in the same process pass.
 	_playerContacts -= 1
 	pass
-	
+
 func checkPlayerDisconnectByAction(player):
 	if playerCarryAI:
 		if player.is_down_held() and player.any_action_pressed():
@@ -273,7 +273,7 @@ func _process(_delta):
 	for index in players.size():
 		var jumpUp
 		var player = players[index][0]
-		
+
 		# verify state is valid for grabbing and not on floor
 		if player.ground or player.currentState != player.STATES.AIR:
 			continue
@@ -295,7 +295,7 @@ func check_grab(player, index):
 	# We always return a grab if the player's contact point is already set.
 	if get_player_contact(index) != null:
 		return true
-	
+
 	# We never grab when the poleID is already on a valid poll (self isn't a valid pole... how this can get set I'm not sure)
 	if player.poleGrabID != null and player.poleGrabID != self:
 		return false
@@ -303,11 +303,11 @@ func check_grab(player, index):
 	# We don't grab if the player is moving upwards and the pole is set not to grab upward moving players.
 	if player.movement.y < 0 and onlyActiveMovingDown:
 		return false
-		
+
 	# We don't grab when the player is outside of the allowed contact distance
 	if (player.global_position.y - global_position.y) < Vector2(0, _CONTACT_DISTANCE).rotated(rotation).y:
 		return false
-		
+
 	# We don't grab when holdDownToDrop is active and down is held
 	if holdDownToDrop and player.is_down_held():
 		return false
@@ -339,6 +339,6 @@ func remove_player(player):
 	# no player found
 	if (getIndex == -1):
 		return
-		
+
 	# Remove the player
 	players.remove_at(getIndex)

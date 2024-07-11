@@ -164,6 +164,7 @@ var crouchBox = null
 # Shield variables
 enum SHIELDS {NONE, NORMAL, FIRE, ELEC, BUBBLE}
 var shield = SHIELDS.NONE
+var activeShields = []
 @onready var magnetShape = $RingMagnet/CollisionShape2D
 @onready var shieldSprite = $Shields
 var reflective = false # used for reflecting projectiles
@@ -1127,7 +1128,11 @@ func hit_player(damagePoint = global_position, damageType = 0, soundID = 6):
 		else:
 			sfx[soundID].play()
 		# Disable Shield
-		set_shield(SHIELDS.NONE)
+		activeShields.resize(activeShields.size() - 1)
+		if activeShields.size() != 0:
+			set_shield(activeShields[activeShields.size() - 1])
+		else:
+			set_shield(SHIELDS.NONE)
 		return true
 	return false
 

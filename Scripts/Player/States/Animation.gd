@@ -19,7 +19,7 @@ func _process(delta):
 		parent.movement = parent.global_position.direction_to(point)
 		parent.global_position = parent.global_position.move_toward(point,pipe.speed*60*delta)
 		parent.translate = true
-		
+
 		# if nearing the end of the current path pipe check if to end or go to next pipe path
 		var getPipeSpeed = pipe.speed
 		while parent.global_position.distance_to(point) <= getPipeSpeed and pipe != null:

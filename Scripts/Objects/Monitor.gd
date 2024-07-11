@@ -72,12 +72,16 @@ func destroy():
 				Global.effectTheme.play()
 		3: # Shield
 			playerTouch.set_shield(playerTouch.SHIELDS.NORMAL)
+			playerTouch.activeShields.append(playerTouch.SHIELDS.NORMAL)
 		4: # Elec
 			playerTouch.set_shield(playerTouch.SHIELDS.ELEC)
+			playerTouch.activeShields.append(playerTouch.SHIELDS.ELEC)
 		5: # Fire
 			playerTouch.set_shield(playerTouch.SHIELDS.FIRE)
+			playerTouch.activeShields.append(playerTouch.SHIELDS.FIRE)
 		6: # Bubble
 			playerTouch.set_shield(playerTouch.SHIELDS.BUBBLE)
+			playerTouch.activeShields.append(playerTouch.SHIELDS.BUBBLE)
 		7: # Super
 			playerTouch.rings += 50
 			if !playerTouch.get("isSuper"):
