@@ -164,7 +164,6 @@ var crouchBox = null
 # Shield variables
 enum SHIELDS {NONE, NORMAL, FIRE, ELEC, BUBBLE}
 var shield = SHIELDS.NONE
-var activeShields = []
 @onready var magnetShape = $RingMagnet/CollisionShape2D
 @onready var shieldSprite = $Shields
 var reflective = false # used for reflecting projectiles
@@ -304,6 +303,9 @@ func _ready():
 
 	# verify that we're not an ai
 	if playerControl == 1:
+		rings = Global.rings
+		if Global.activeShields.size() != 0:
+			set_shield(Global.activeShields[Global.activeShields.size() - 1])
 		# input memory
 		for _i in range(INPUT_MEMORY_LENGTH):
 			inputMemory.append(inputs.duplicate(true))
@@ -476,7 +478,7 @@ func _process(delta):
 		# Go ahead and advance the position to the one we wrote INPUT_MEMORY_LENGTH frames ago... it's the
 		# next one we want to read anyway *and* the next one we want to write after that.
 		memoryPosition = (memoryPosition + 1) % INPUT_MEMORY_LENGTH
-
+		Global.rings = rings
 		# Partner ai logic
 		if partner != null:
 			# Check if partner panic
@@ -1128,11 +1130,12 @@ func hit_player(damagePoint = global_position, damageType = 0, soundID = 6):
 		else:
 			sfx[soundID].play()
 		# Disable Shield
-		activeShields.resize(activeShields.size() - 1)
-		if activeShields.size() != 0:
-			set_shield(activeShields[activeShields.size() - 1])
-		else:
-			set_shield(SHIELDS.NONE)
+		if playerControl == 1:
+			Global.activeShields.resize(Global.activeShields.size() - 1)
+			if Global.activeShields.size() != 0:
+				set_shield(Global.activeShields[Global.activeShields.size() - 1])
+			else:
+				set_shield(SHIELDS.NONE)
 		return true
 	return false
 

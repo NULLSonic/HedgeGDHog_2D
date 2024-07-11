@@ -660,7 +660,10 @@ smoothDrop = true
 position = Vector2(1976, 1336)
 
 [node name="Breakable" parent="Entity" instance=ExtResource("19_lchl3")]
-position = Vector2(80, 272)
+position = Vector2(96, 272)
+
+[node name="Breakable5" parent="Entity" instance=ExtResource("19_lchl3")]
+position = Vector2(64, 272)
 
 [node name="Breakable2" parent="Entity" instance=ExtResource("19_lchl3")]
 position = Vector2(208, 304)
@@ -1801,6 +1804,14 @@ position = Vector2(9984, 936)
 texture = ExtResource("64_d1r0g")
 region_enabled = true
 region_rect = Rect2(0, 16, 64, 80)
+
+[node name="Spring" parent="." instance=ExtResource("15_sn1cn")]
+z_index = -1
+position = Vector2(48, 632)
+
+[node name="Platform" parent="." instance=ExtResource("7_rjmim")]
+position = Vector2(40, 480)
+endPosition = Vector2(0, 0)
 
 [connection signal="body_entered" from="Platforms/MCZCollapsePlatform" to="Platforms/MCZCollapsePlatform" method="_on_body_entered"]
 [connection signal="body_exited" from="Platforms/MCZCollapsePlatform" to="Platforms/MCZCollapsePlatform" method="_on_body_exited"]
