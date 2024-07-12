@@ -107,7 +107,7 @@ func _process(delta):
 
 	# cehck that there's player, if there is then track the focus players ring count
 	if (Global.players.size() > 0):
-		ringText.text = "%3d" % Global.players[focusPlayer].rings
+		ringText.text = "%6d" % Global.players[focusPlayer].rings
 
 	# track lives with leading 0s
 	lifeText.text = "%2d" % Global.lives

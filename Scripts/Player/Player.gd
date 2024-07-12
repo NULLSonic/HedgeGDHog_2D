@@ -202,7 +202,7 @@ var rachetScrollRight = false
 var rachetScrollTop = false
 var rachetScrollBottom = false
 
-var rotatableSprites = ["walk", "jog", "run", "dash", "peelOut", "hammerSwing", "spinDash", "roll", "fall"]
+var rotatableSprites = ["idle", "idle1", "idle2", "idle3", "idle4", "lookUp", "lookUp_end", "crouch", "crouch_end", "walk", "jog", "run", "dash", "peelOut", "hammerSwing", "spinDash", "roll", "fall"]
 var direction = scale.x
 
 # Ground speed is mostly used for timing and animations, there isn't any functionality to it.
@@ -443,6 +443,8 @@ func _ready():
 		partner.sfx = sfx
 
 	set_abilities()
+	if playerControl == 1:
+		rings = Global.rings
 
 func set_abilities():
 	spin_dash = SaveData.is_true("Spin Dash")
@@ -478,7 +480,8 @@ func _process(delta):
 		# Go ahead and advance the position to the one we wrote INPUT_MEMORY_LENGTH frames ago... it's the
 		# next one we want to read anyway *and* the next one we want to write after that.
 		memoryPosition = (memoryPosition + 1) % INPUT_MEMORY_LENGTH
-		Global.rings = rings
+		if Global.stageClearPhase == 0:
+			Global.rings = rings
 		# Partner ai logic
 		if partner != null:
 			# Check if partner panic
@@ -544,7 +547,7 @@ func _process(delta):
 			spriteRotation = min(360,spriteRotation+(168.75*delta))
 
 	# set the sprite to match the sprite rotation variable if it's in the rotatable Sprites list
-	if (rotatableSprites.has(animator.current_animation)):
+	if (rotatableSprites.has(animator.current_animation) or rotatableSprites.has(lastActiveAnimation)):
 		# check if player rotation is greater then 45 degrees or current angle doesn't match the gravity's angle or not on the floor
 		if abs(spriteRotation-90) >= 32 or rotation != gravityAngle or !ground:
 			pass #sprite.rotation = deg_to_rad(snapped(spriteRotation,45)-90)-rotation-gravityAngle
