@@ -15,8 +15,11 @@ var characterID = 0
 var levelID = 0
 
 func _ready():
-	Global.music.stream = music
-	Global.music.play()
+	if !Global.is_main_loaded:
+		return false
+	if !Global.music.is_playing():
+		Global.music.stream = music
+		Global.music.play()
 	$UI/Labels/Control/Character.text = characterLabels[characterID]
 	if nextZone != null:
 		Global.nextZone = nextZone
@@ -32,10 +35,14 @@ func _input(event):
 			levelID = wrapi(levelID+1,0,levelLabels.size())
 		if Input.is_action_just_pressed("gm_up"):
 			levelID = wrapi(levelID-1,0,levelLabels.size())
-		
+		if Input.is_key_label_pressed(KEY_F1):
+			selected = true
+			Global.nextZone = load("res://Scene/Presentation/options.tscn")
+			Global.main.change_scene_to_file(Global.nextZone,"FadeOut","FadeOut",1)
+
 		$UI/Labels/Control/Character.text = characterLabels[characterID]
 		$UI/Labels/Control/Level.text = levelLabels[levelID]
-		
+
 		# turn on and off visibility of the characters based on the current selection
 		match(characterID):
 			0: # Sonic and Tails
@@ -63,13 +70,13 @@ func _input(event):
 				$UI/Labels/CharacterOrigin/Tails.visible = false
 				$UI/Labels/CharacterOrigin/Knuckles.visible = false
 				$UI/Labels/CharacterOrigin/Amy.visible = true
-		
+
 		# finish character select if start is pressed
 		if event.is_action_pressed("gm_pause"):
 			selected = true
 			# set player 2 to none to prevent redundant code
 			Global.PlayerChar2 = Global.CHARACTERS.NONE
-			
+
 			# set the character
 			match(characterID):
 				0: # Sonic and Tails
@@ -83,7 +90,7 @@ func _input(event):
 					Global.PlayerChar1 = Global.CHARACTERS.KNUCKLES
 				4: # Amy
 					Global.PlayerChar1 = Global.CHARACTERS.AMY
-					
+
 			# set the level
 			match(levelID):
 				0: # Base Zone Act 1
@@ -92,5 +99,5 @@ func _input(event):
 					Global.nextZone = load("res://Scene/Zones/BaseZoneAct2.tscn") # Replace me! I don't exist yet!
 				#2: # Chunk Zone Act 1
 				#	Global.nextZone = load("res://Scene/Zones/ChunkZone.tscn")
-			
+
 			Global.main.change_scene_to_file(Global.nextZone,"FadeOut","FadeOut",1)

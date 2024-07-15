@@ -482,6 +482,7 @@ func _process(delta):
 		memoryPosition = (memoryPosition + 1) % INPUT_MEMORY_LENGTH
 		if Global.stageClearPhase == 0:
 			Global.rings = rings
+		rings = clamp(rings, 0, 999)
 		# Partner ai logic
 		if partner != null:
 			# Check if partner panic

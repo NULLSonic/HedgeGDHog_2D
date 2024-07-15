@@ -55,27 +55,27 @@ func _input(event):
 	# check if paused and visible, otherwise cancel it out
 	if !get_tree().paused or !visible:
 		return null
-	
+
 	if event.is_action_released("gm_left") or event.is_action_released("gm_right"):
 		subSoundStep = 0.2
 		soundStepDelay = 0
-	
+
 	# change menu options
 	if event.is_action_pressed("gm_down"):
 		choose_option(option+1)
 	elif event.is_action_pressed("gm_up"):
 		choose_option(option-1)
-	
+
 	# Volume controls
 	elif (event.is_action("gm_left") or event.is_action("gm_right")) and menu == MENUS.OPTIONS:
 		var inputDir = -1+int(event.is_action("gm_right"))*2
-		
+
 		# set audio busses
 		var getBus = "SFX"
 		if option > 0:
 			getBus = "Music"
 		var soundExample = [$MenuVert,$MenuMusicVolume]
-		
+
 		match(option):
 			0, 1: # Volume
 				if soundStepDelay <= 0:
@@ -92,8 +92,8 @@ func _input(event):
 					Global.zoomSize = clamp(Global.zoomSize+inputDir,zoomClamp[0],zoomClamp[1])
 					get_window().set_size(get_viewport().get_visible_rect().size*Global.zoomSize)
 		$PauseMenu/VBoxContainer.get_child(option+1).get_child(0).text = update_text(option+1)
-	
-	
+
+
 	# menu button activate
 	elif event.is_action_pressed("gm_pause") or event.is_action_pressed("gm_action"):
 		match(menu): # menu handles
@@ -145,8 +145,8 @@ func _input(event):
 					1: # ok
 						await get_tree().process_frame
 						Global.main.reset_game()
-		
-	
+
+
 
 func choose_option(optionSet = option+1, playSound = true):
 	# reset curren option colour to white
@@ -154,7 +154,7 @@ func choose_option(optionSet = option+1, playSound = true):
 	# change to new option, set the new option colour to yellow
 	option = wrapi(optionSet,0,menusText[menu].size()-1)
 	$PauseMenu/VBoxContainer.get_child(option+1).modulate = Color(1,1,0)
-	
+
 	if playSound:
 		$MenuVert.play()
 
@@ -164,7 +164,7 @@ func set_menu(menuID = 0):
 		i.queue_free()
 	# set new menu
 	menu = menuID
-	
+
 	# loop through menu lists and create a text node for each option
 	for i in menusText[menuID].size():
 		var text = Text.instantiate()

@@ -1,0 +1,91 @@
+[gd_scene load_steps=7 format=3 uid="uid://c1h8ocga88okv"]
+
+[ext_resource type="Texture2D" uid="uid://c7d6313minexh" path="res://Graphics/HUD/hud_text.png" id="1_n5icq"]
+[ext_resource type="Script" path="res://Scripts/HUD/counters.gd" id="1_qk3o2"]
+[ext_resource type="FontFile" uid="uid://cticydrc4dda2" path="res://Graphics/HUD/hud_numerals.png" id="2_fctgi"]
+[ext_resource type="Material" uid="uid://bveqi5m5ihsgj" path="res://Shaders/PlayerPalette.tres" id="4_jxwqc"]
+[ext_resource type="Texture2D" uid="uid://d35rjx5tir1v8" path="res://Graphics/HUD/lives.png" id="5_st4hk"]
+[ext_resource type="FontFile" uid="uid://cj70hn8i05uo5" path="res://Graphics/HUD/hud_lives_numerals.png" id="6_6cn7x"]
+
+[node name="Counters" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qk3o2")
+
+[node name="Score" type="Sprite2D" parent="."]
+texture = ExtResource("1_n5icq")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 39, 16)
+
+[node name="ScoreNumber" type="Label" parent="Score"]
+offset_left = 56.0
+offset_right = 64.0
+offset_bottom = 16.0
+theme_override_fonts/font = ExtResource("2_fctgi")
+text = "0"
+
+[node name="Time" type="Sprite2D" parent="."]
+position = Vector2(0, 16)
+texture = ExtResource("1_n5icq")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 16, 31, 16)
+
+[node name="TimeNumbers" type="Label" parent="Time"]
+offset_left = 56.0
+offset_right = 128.0
+offset_bottom = 19.0
+theme_override_fonts/font = ExtResource("2_fctgi")
+text = "00:00"
+
+[node name="Red" type="Sprite2D" parent="Time"]
+visible = false
+position = Vector2(20, 8)
+texture = ExtResource("1_n5icq")
+region_enabled = true
+region_rect = Rect2(0, 48, 40, 16)
+
+[node name="Rings" type="Sprite2D" parent="."]
+position = Vector2(0, 32)
+texture = ExtResource("1_n5icq")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 32, 38, 16)
+
+[node name="RingCount" type="Label" parent="Rings"]
+offset_left = 56.0
+offset_right = 64.0
+offset_bottom = 19.0
+theme_override_fonts/font = ExtResource("2_fctgi")
+text = "0"
+
+[node name="Red" type="Sprite2D" parent="Rings"]
+visible = false
+position = Vector2(20, 8)
+texture = ExtResource("1_n5icq")
+region_enabled = true
+region_rect = Rect2(0, 64, 40, 16)
+
+[node name="LifeCounter" type="Sprite2D" parent="."]
+material = ExtResource("4_jxwqc")
+position = Vector2(8, 216)
+texture = ExtResource("5_st4hk")
+vframes = 5
+
+[node name="LifeText" type="Label" parent="LifeCounter"]
+offset_left = 8.0
+offset_right = 24.0
+offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("6_6cn7x")
+theme_override_font_sizes/font_size = 8
+text = "0
+"

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4a388yqbj4e0"]
+
+[ext_resource type="Script" path="res://Scripts/HUD/hud_config.gd" id="1_otghb"]
+[ext_resource type="PackedScene" uid="uid://c1h8ocga88okv" path="res://Entities/HUD/counters.tscn" id="1_tinv2"]
+
+[node name="HUDConfig" type="Node2D"]
+script = ExtResource("1_otghb")
+
+[node name="Counters" parent="." instance=ExtResource("1_tinv2")]
+offset_right = 416.0
+offset_bottom = 232.0

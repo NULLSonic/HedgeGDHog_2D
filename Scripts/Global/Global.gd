@@ -132,6 +132,7 @@ func _process(delta):
 	# count global timer if game isn't paused
 	if !get_tree().paused:
 		globalTimer += delta
+	lives = clamp(lives, 0, 99)
 
 # reset values, self explanatory, put any variables to their defaults in here
 func reset_values():

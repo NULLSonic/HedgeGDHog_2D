@@ -1,9 +1,9 @@
 [gd_scene load_steps=34 format=3 uid="uid://c30uceea18q1w"]
 
-[ext_resource type="Texture2D" uid="uid://dloxtqer7p78l" path="res://Graphics/HUD/hud_lives.png" id="2_cfvjc"]
 [ext_resource type="Material" uid="uid://bveqi5m5ihsgj" path="res://Shaders/PlayerPalette.tres" id="2_xy7bp"]
+[ext_resource type="Texture2D" uid="uid://d35rjx5tir1v8" path="res://Graphics/HUD/lives.png" id="3_70ikv"]
 [ext_resource type="FontFile" uid="uid://cj70hn8i05uo5" path="res://Graphics/HUD/hud_lives_numerals.png" id="3_eauoj"]
-[ext_resource type="Texture2D" uid="uid://c7d6313minexh" path="res://Graphics/HUD/hud_text.png" id="5_kre34"]
+[ext_resource type="PackedScene" uid="uid://c1h8ocga88okv" path="res://Entities/HUD/counters.tscn" id="5_xvgah"]
 [ext_resource type="Script" path="res://Scripts/Misc/HUD.gd" id="6"]
 [ext_resource type="FontFile" uid="uid://cticydrc4dda2" path="res://Graphics/HUD/hud_numerals.png" id="6_synv7"]
 [ext_resource type="Texture2D" uid="uid://gswo6rq3uyy8" path="res://Graphics/HUD/LevelCards/Banner.png" id="7_ccygi"]
@@ -717,84 +717,32 @@ anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = -24.0
-offset_right = 72.0
+offset_right = 40.0
 offset_bottom = -8.0
 grow_vertical = 0
 
 [node name="Icon" type="Sprite2D" parent="LifeCounter"]
 material = ExtResource("2_xy7bp")
-texture = ExtResource("2_cfvjc")
-centered = false
+position = Vector2(8, 8)
+texture = ExtResource("3_70ikv")
 vframes = 5
 
 [node name="LifeText" type="Label" parent="LifeCounter/Icon"]
-offset_left = 32.0
-offset_top = 8.0
-offset_right = 32.0
+offset_left = 8.0
+offset_right = 24.0
 offset_bottom = 8.0
 theme_override_fonts/font = ExtResource("3_eauoj")
 theme_override_font_sizes/font_size = 8
-text = "0"
+text = "0
+"
 
-[node name="Counters" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 48.0
-offset_bottom = 48.0
-
-[node name="Text" type="Sprite2D" parent="Counters"]
-texture = ExtResource("5_kre34")
-centered = false
-region_enabled = true
-region_rect = Rect2(0, 0, 40, 48)
-
-[node name="ScoreNumber" type="Label" parent="Counters/Text"]
-offset_left = 48.0
-offset_right = 48.0
-theme_override_fonts/font = ExtResource("6_synv7")
-text = "0"
-
-[node name="TimeNumbers" type="Label" parent="Counters/Text"]
-offset_left = 32.0
-offset_top = 16.0
-offset_right = 40.0
-offset_bottom = 35.0
-theme_override_fonts/font = ExtResource("6_synv7")
-text = "00:00"
-
-[node name="RingCount" type="Label" parent="Counters/Text"]
-offset_left = 48.0
-offset_top = 32.0
-offset_right = 56.0
-offset_bottom = 51.0
-theme_override_fonts/font = ExtResource("6_synv7")
-text = "0"
-
-[node name="Time" type="Sprite2D" parent="Counters/Text"]
-visible = false
-position = Vector2(0, 16)
-texture = ExtResource("5_kre34")
-centered = false
-region_enabled = true
-region_rect = Rect2(0, 48, 40, 16)
-
-[node name="Rings" type="Sprite2D" parent="Counters/Text"]
-visible = false
-position = Vector2(0, 32)
-texture = ExtResource("5_kre34")
-centered = false
-region_enabled = true
-region_rect = Rect2(0, 64, 40, 16)
-
-[node name="BlueRings" type="Sprite2D" parent="Counters/Text"]
-visible = false
-position = Vector2(0, 32)
-texture = ExtResource("5_kre34")
-centered = false
-region_enabled = true
-region_rect = Rect2(0, 80, 40, 16)
+[node name="Counters" parent="." instance=ExtResource("5_xvgah")]
+ring_pos = Vector2(0, 32)
+ring_num_pos = Vector2(56, 0)
+ring_num_align = "%6d"
+life_pos = null
+life_num_pos = null
+life_num_align = null
 
 [node name="LevelCard" type="Control" parent="."]
 process_mode = 3
@@ -855,7 +803,7 @@ vframes = 2
 [node name="PatternLeft" type="Control" parent="LevelCard"]
 anchors_preset = 0
 anchor_bottom = 1.0
-offset_bottom = 16272.0
+offset_bottom = 17472.0
 
 [node name="PatternLeft" type="TextureRect" parent="LevelCard/PatternLeft"]
 layout_mode = 1
@@ -879,7 +827,7 @@ anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_top = -32.0
-offset_bottom = 15984.0
+offset_bottom = 17184.0
 
 [node name="PatternRight" type="TextureRect" parent="LevelCard/RightRatio/PatternRight"]
 layout_mode = 1
@@ -889,7 +837,7 @@ anchor_top = 0.003
 anchor_right = 1.0
 anchor_bottom = 0.003
 offset_top = 32.0
-offset_right = 7520.0
+offset_right = 12448.0
 offset_bottom = 288.0
 grow_horizontal = 0
 grow_vertical = 2

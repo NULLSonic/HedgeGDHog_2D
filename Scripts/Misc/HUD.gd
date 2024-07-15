@@ -4,12 +4,6 @@ extends CanvasLayer
 # player ID look up
 @export var focusPlayer = 0
 
-# counter elements pointers
-@onready var scoreText = $Counters/Text/ScoreNumber
-@onready var timeText = $Counters/Text/TimeNumbers
-@onready var ringText = $Counters/Text/RingCount
-@onready var lifeText = $LifeCounter/Icon/LifeText
-
 # play level card, if true will play the level card animator and use the zone name and zone text with the act
 @export var playLevelCard = true
 @export var zoneName = "Base"
@@ -46,8 +40,6 @@ func _ready():
 	# stop timer from counting during stage start up and set global hud to self
 	Global.timerActive = false
 	Global.hud = self
-	# Set character Icon
-	$LifeCounter/Icon.frame = Global.PlayerChar1-1
 
 	# play level card routine if level card is true
 	if playLevelCard:
@@ -95,23 +87,6 @@ func _ready():
 	$LevelClear/Act.frame = act-1
 
 func _process(delta):
-	# set score string to match global score with leading 0s
-	scoreText.text = "%6d" % Global.score
-
-	# clamp time so that it won't go to 10 minutes
-	var timeClamp = min(Global.levelTime,Global.maxTime-1)
-	# set time text, format it to have a leadin 0 so that it's always 2 digits
-	#timeText.text = "%2d" % floor(timeClamp/60) + ":" + str(fmod(floor(timeClamp),60)).pad_zeros(2)
-	# uncomment below (and remove above line) for mili seconds
-	timeText.text = "%2d" % floor(timeClamp/60) + ":" + str(fmod(floor(timeClamp),60)).pad_zeros(2) + ":" + str(fmod(floor(timeClamp*100),100)).pad_zeros(2)
-
-	# cehck that there's player, if there is then track the focus players ring count
-	if (Global.players.size() > 0):
-		ringText.text = "%6d" % Global.players[focusPlayer].rings
-
-	# track lives with leading 0s
-	lifeText.text = "%2d" % Global.lives
-
 	# Water Overlay
 
 	# cehck that this level has water
@@ -152,24 +127,6 @@ func _process(delta):
 		# disable water overlay
 		$Water/WaterOverlay.visible = false
 
-
-	# HUD flashing text
-	if flashTimer < 0:
-		flashTimer = 0.1
-		if Global.players.size() > 0:
-			# if ring count at zero, flash rings
-			if Global.players[focusPlayer].rings <= 0:
-				$Counters/Text/Rings.visible = !$Counters/Text/Rings.visible
-			else:
-				$Counters/Text/Rings.visible = false
-		# if minutes up to 9 then flash time
-		if Global.levelTime >= 60*9:
-			$Counters/Text/Time.visible = !$Counters/Text/Time.visible
-		else:
-			$Counters/Text/Time.visible = false
-	elif !get_tree().paused:
-		flashTimer -= delta
-
 	# stage clear handling
 	if Global.stageClearPhase > 2:
 		# initialize stage clear sequence
@@ -184,7 +141,7 @@ func _process(delta):
 			# set bonuses
 			ringBonus = floor(Global.players[focusPlayer].rings)*100
 			$LevelClear/Tally/RingNumbers.text = "%6d" % ringBonus
-			$LevelClear/Tally/TimeNumbers.text = $Counters/Text/TimeNumbers.text
+			$LevelClear/Tally/TimeNumbers.text = $Counters/Time/TimeNumbers.text
 			coolBonus = Global.cool_score
 			$LevelClear/Tally/CoolText/CoolNumbers.text = "%6d" % coolBonus
 			timeBonus = 0
