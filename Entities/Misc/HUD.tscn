@@ -737,12 +737,6 @@ text = "0
 "
 
 [node name="Counters" parent="." instance=ExtResource("5_xvgah")]
-ring_pos = Vector2(0, 32)
-ring_num_pos = Vector2(56, 0)
-ring_num_align = "%6d"
-life_pos = null
-life_num_pos = null
-life_num_align = null
 
 [node name="LevelCard" type="Control" parent="."]
 process_mode = 3
@@ -803,7 +797,7 @@ vframes = 2
 [node name="PatternLeft" type="Control" parent="LevelCard"]
 anchors_preset = 0
 anchor_bottom = 1.0
-offset_bottom = 17472.0
+offset_bottom = 17712.0
 
 [node name="PatternLeft" type="TextureRect" parent="LevelCard/PatternLeft"]
 layout_mode = 1
@@ -827,7 +821,7 @@ anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_top = -32.0
-offset_bottom = 17184.0
+offset_bottom = 17424.0
 
 [node name="PatternRight" type="TextureRect" parent="LevelCard/RightRatio/PatternRight"]
 layout_mode = 1
@@ -837,7 +831,7 @@ anchor_top = 0.003
 anchor_right = 1.0
 anchor_bottom = 0.003
 offset_top = 32.0
-offset_right = 12448.0
+offset_right = 12480.0
 offset_bottom = 288.0
 grow_horizontal = 0
 grow_vertical = 2
