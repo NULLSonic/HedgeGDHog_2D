@@ -1151,6 +1151,9 @@ func get_ring():
 		ringChannel = int(!ringChannel)
 
 	elif partner != null:
+		if partner.playerControl == 1: # error prevention
+			partner.get_ring()
+	
 		partner.get_ring()
 
 func kill():
@@ -1192,8 +1195,8 @@ func kill():
 
 func respawn():
 	if partner != null:
-		# cancel function if partner is dead
-		if partner.currentState == STATES.DIE:
+		# cancel function if partner is dead or ai controlled
+		if partner.currentState == STATES.DIE || partner.playerControl != 1:
 			return false
 
 		airTimer = 1
