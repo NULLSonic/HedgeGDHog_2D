@@ -35,7 +35,7 @@ func _input(event):
 			visible = !visible
 			get_tree().paused = visible
 			check_deletion()
-	
+
 	# Clear inputs
 	elif visible and event.is_action_pressed("ui_clear_action"):
 		if clearEventStep == 0:
@@ -50,7 +50,7 @@ func _input(event):
 					p2Text = "_P2"
 				# remove event action
 				InputMap.action_erase_events (bindButton.bind+p2Text)
-			
+
 			# reset clear
 			clearEventStep = 0
 			update_display()
@@ -86,7 +86,7 @@ func update_display():
 				elif i is InputEventJoypadMotion:
 					if i.axis < joyAxisNameList.size():
 						charList += joyAxisNameList[i.axis]+"("+str(i.axis_value)+"), "
-			
+
 			$CurrentMapList.text = charList.left(charList.length()-2)
 	else:
 		$CurrentMapList.text = ""
@@ -129,25 +129,25 @@ func load_data():
 	var err = file.load("user://Config.cfg")
 	if err != OK:
 		return false # Return false as an error
-	
+
 	# load inputs
 	var actionCount = 0
 	for i in InputMap.get_actions(): # loop through input names
 		# prefix keys: K = Key, B = joypad Button, A = Axis, V = AxisValue
-		
+
 		# check for any inputs, if any are found then remove binding
-		if (file.has_section_key("controls","K0"+i) or 
+		if (file.has_section_key("controls","K0"+i) or
 		file.has_section_key("controls","B0"+i) or
-		file.has_section_key("controls","A0"+i) or 
+		file.has_section_key("controls","A0"+i) or
 		file.has_section_key("controls","V0"+i)):
 			# clear input
 			InputMap.action_erase_events(i)
 		# check prefixes
-		while (file.has_section_key("controls","K"+str(actionCount)+i) or 
+		while (file.has_section_key("controls","K"+str(actionCount)+i) or
 		file.has_section_key("controls","B"+str(actionCount)+i) or
-		file.has_section_key("controls","A"+str(actionCount)+i) or 
+		file.has_section_key("controls","A"+str(actionCount)+i) or
 		file.has_section_key("controls","V"+str(actionCount)+i)):
-			
+
 			# keyboard check
 			if (file.has_section_key("controls","K"+str(actionCount)+i)):
 				# define new key
@@ -180,7 +180,7 @@ func load_data():
 					getInput.device = file.get_value("controls","A"+str(actionCount)+i+"Device")
 				# set new input
 				InputMap.action_add_event(i,getInput)
-			
+
 			actionCount += 1
 		# reset action counter
 		actionCount = 0

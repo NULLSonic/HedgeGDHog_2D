@@ -1,0 +1,9 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://d1i011ykmctl2"]
+
+[ext_resource type="FontFile" uid="uid://b8up3hxuetxsf" path="res://Graphics/Fonts/sonicFont_small.ttf" id="1_xj1xl"]
+
+[resource]
+font = ExtResource("1_xj1xl")
+font_size = 8
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)

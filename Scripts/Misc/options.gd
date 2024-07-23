@@ -3,7 +3,8 @@ extends Node2D
 @export var music = preload("res://Audio/Soundtrack/10. SWD_CharacterSelect.ogg")
 var selection: int = 0
 var pressed = false
-@onready var maxSel: int = $BG/options.get_child_count()
+var curCat = 0
+@onready var maxSel: int = $BG/options/options.get_child_count()
 
 func _ready():
 	if !Global.is_main_loaded:
@@ -12,23 +13,45 @@ func _ready():
 		Global.music.stream = music
 		Global.music.play()
 
-func _process(delta: float) -> void:
 	for i in maxSel:
-		$BG/options.get_child(i).modulate = Color(1, 1, 1)
-	$BG/options.get_child(selection).modulate = Color(1, 1, 0)
+		$BG/options/options.get_child(i).modulate = Color(1, 1, 1)
+	$BG/options/options.get_child(selection).modulate = Color(1, 1, 0)
+
+func _process(delta: float) -> void:
+	$BG/options/ControllerMenu.visible = true
+	$BG/options/ControllerMenu/Title.visible = false
 
 func _input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("gm_down"):
+	if Input.is_action_just_pressed("gm_down") and !pressed:
 		change_sel(1)
-	if Input.is_action_just_pressed("gm_up"):
+	if Input.is_action_just_pressed("gm_up") and !pressed:
 		change_sel(-1)
-	if Input.is_action_just_pressed("gm_pause"):
+	if Input.is_action_just_pressed("gm_pause") and !pressed:
 		$confirm.play()
-	if Input.is_action_just_pressed("gm_action2") and !pressed:
-		$goBack.play()
 		pressed = true
-		Global.main.change_scene_to_file(load("res://Scene/Presentation/CharacterSelect.tscn"),"FadeOut","FadeOut",1)
+		match (selection):
+			3:
+				$BG/swap.play('main2ctrl')
+				curCat = selection
+	if Input.is_action_just_pressed("gm_action2"):
+		$goBack.play()
+		if !pressed:
+			pressed = true
+			Global.main.change_scene_to_file(load("res://Scene/Presentation/CharacterSelect.tscn"),"FadeOut","FadeOut",1)
+		else:
+			pressed = false
+			curCat = 0
+			$BG/swap.play_backwards('main2ctrl')
 
 func change_sel(amount: int):
 	$swap.play()
 	selection = wrapi(selection + amount, 0, maxSel)
+	for i in maxSel:
+		$BG/options/options.get_child(i).modulate = Color(1, 1, 1)
+	$BG/options/options.get_child(selection).modulate = Color(1, 1, 0)
+
+func _on_confirm_pressed() -> void:
+	$goBack.play()
+	pressed = false
+	curCat = 0
+	$BG/swap.play_backwards('main2ctrl')

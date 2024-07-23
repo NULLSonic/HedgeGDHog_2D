@@ -17,15 +17,15 @@ var flashTimer = 0
 @export_group("Counters Config")
 @export_subgroup("Score Counter")
 @export var score_pos: Vector2 = Vector2(0, 0)
-@export var score_num_pos: Vector2 = Vector2(56, 0)
+@export var score_num_pos: Vector2 = Vector2(48, 0)
 @export var score_num_align: String = "%6d"
 @export_subgroup("Time Counter")
 @export var time_pos: Vector2 = Vector2(0, 16)
-@export var time_num_pos: Vector2 = Vector2(56, 0)
+@export var time_num_pos: Vector2 = Vector2(40, 0)
 @export var time_num_align: String = "%2d"
 @export_subgroup("Ring Counter")
 @export var ring_pos: Vector2 = Vector2(0, 32)
-@export var ring_num_pos: Vector2 = Vector2(56, 0)
+@export var ring_num_pos: Vector2 = Vector2(48, 0)
 @export var ring_num_align: String = "%6d"
 @export_subgroup("Life Counter")
 @export var life_pos: Vector2 = Vector2(8, 216)
@@ -49,7 +49,7 @@ func _process(delta: float) -> void:
 		# set time text, format it to have a leadin 0 so that it's always 2 digits
 		#timeText.text = time_num_align % floor(timeClamp/60) + ":" + str(fmod(floor(timeClamp),60)).pad_zeros(2)
 		# uncomment below (and remove above line) for mili seconds
-		timeText.text = time_num_align % floor(timeClamp/60) + ":" + str(fmod(floor(timeClamp),60)).pad_zeros(2) + ":" + str(fmod(floor(timeClamp*100),100)).pad_zeros(2)
+		timeText.text = "%1d" % floor(timeClamp/60) + ":" + str(fmod(floor(timeClamp),60)).pad_zeros(2) + ":" + str(fmod(floor(timeClamp*100),100)).pad_zeros(2)
 
 		# check that there's player, if there is then track the focus players ring count
 		if (Global.players.size() > 0):

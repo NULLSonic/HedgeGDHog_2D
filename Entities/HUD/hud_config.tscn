@@ -9,3 +9,6 @@ script = ExtResource("1_otghb")
 [node name="Counters" parent="." instance=ExtResource("1_tinv2")]
 offset_right = 416.0
 offset_bottom = 232.0
+score_num_pos = Vector2(56, 0)
+time_num_pos = Vector2(56, 0)
+ring_num_pos = Vector2(56, 0)

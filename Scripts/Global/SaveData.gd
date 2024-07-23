@@ -64,6 +64,8 @@ func load_data(section: String, key: String, path: String = "user://SaveData.cfg
 		return null
 	if file.has_section_key(section, key):
 		return file.get_value(section, key)
+	else:
+		return null
 
 func is_true(key: String, path: String = "user://SaveData.cfg"): # Used to check if both keys are true or false
 	var unlocked: bool

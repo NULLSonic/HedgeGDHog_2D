@@ -1,0 +1,33 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://d3qyeb17xw56s"]
+
+[ext_resource type="FontFile" uid="uid://cj2e2vh076bgc" path="res://Graphics/Fonts/sonicFont_HUD.ttf" id="1_2rxnl"]
+
+[resource]
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 8
+Button/fonts/font = ExtResource("1_2rxnl")
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 8
+Label/fonts/font = ExtResource("1_2rxnl")
+LineEdit/colors/font_outline_color = Color(0, 0, 0, 1)
+LineEdit/constants/outline_size = 8
+LineEdit/fonts/font = ExtResource("1_2rxnl")
+PopupMenu/colors/font_outline_color = Color(0, 0, 0, 1)
+PopupMenu/colors/font_separator_outline_color = Color(0, 0, 0, 1)
+PopupMenu/constants/outline_size = 8
+PopupMenu/constants/separator_outline_size = 8
+PopupMenu/fonts/font = ExtResource("1_2rxnl")
+PopupMenu/fonts/font_separator = ExtResource("1_2rxnl")
+ProgressBar/colors/font_outline_color = Color(0, 0, 0, 1)
+ProgressBar/constants/outline_size = 8
+ProgressBar/fonts/font = ExtResource("1_2rxnl")
+TabContainer/colors/font_outline_color = Color(0, 0, 0, 1)
+TabContainer/constants/outline_size = 8
+TabContainer/fonts/font = ExtResource("1_2rxnl")
+TextEdit/colors/font_outline_color = Color(0, 0, 0, 1)
+TextEdit/constants/outline_size = 8
+TextEdit/fonts/font = ExtResource("1_2rxnl")
+Tree/colors/font_outline_color = Color(0, 0, 0, 1)
+Tree/constants/outline_size = 8
+Tree/fonts/font = ExtResource("1_2rxnl")
+Tree/fonts/title_button_font = ExtResource("1_2rxnl")
