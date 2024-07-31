@@ -115,8 +115,49 @@ func _input(event):
 					1: # ok
 						await get_tree().process_frame
 						Global.main.reset_game()
-		
-	
+
+func do_lateral_input():
+
+	var inputCue = Input.get_vector("gm_left","gm_right","gm_up","ui_down")
+	inputCue.x = round(inputCue.x)
+	inputCue.y = round(inputCue.y)
+
+	if inputCue.x != 0 and subSoundStep == 0:
+		subSoundStep = 5.0
+		soundStepDelay = 0
+
+	# change menu options
+	if inputCue.y != lastInput.y:
+		if inputCue.y > 0:
+			choose_option(option+1)
+		elif inputCue.y < 0:
+			choose_option(option-1)
+
+	# Volume controls
+	elif inputCue.x != 0 and menu == MENUS.OPTIONS:
+		var inputDir = inputCue.x
+
+		# set audio busses
+		var getBus = "SFX"
+		if option > 0:
+			getBus = "Music"
+		var soundExample = [$MenuVert,$MenuMusicVolume]
+
+		match(option):
+			0, 1: # Volume
+				if soundStepDelay <= 0:
+					soundExample[option].play()
+					AudioServer.set_bus_volume_db(AudioServer.get_bus_index(getBus),clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index(getBus))+inputDir*soundStep,clampSounds[0],clampSounds[1]))
+					AudioServer.set_bus_mute(AudioServer.get_bus_index(getBus),AudioServer.get_bus_volume_db(AudioServer.get_bus_index(getBus)) <= clampSounds[0])
+					soundStepDelay = subSoundStep
+				else:
+					soundStepDelay -= 0.1
+			2: # Scale
+				if inputCue.x != 0 and inputCue != lastInput:
+					Global.zoomSize = clamp(Global.zoomSize+inputDir,zoomClamp[0],zoomClamp[1])
+					get_window().set_size(get_viewport().get_visible_rect().size*Global.zoomSize)
+		$PauseMenu/VBoxContainer.get_child(option+1).get_child(0).text = update_text(option+1)
+	lastInput = inputCue
 
 func choose_option(optionSet = option+1, playSound = true):
 	# reset curren option colour to white

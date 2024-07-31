@@ -28,7 +28,7 @@ func _ready():
 		Global.nextZone = nextZone
 
 func _input(event):
-	
+
 	if !selected:
 		var inputCue = Input.get_vector("gm_left","gm_right","gm_up","gm_down")
 		inputCue.x = round(inputCue.x)

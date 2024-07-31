@@ -21,14 +21,14 @@ func _unhandled_input(event):
 			# if player index is 1 then add _P2 to the p2Text
 			if control.playerControlIndex == 1:
 				p2Text = "_P2"
-			
+
 			# add new event
 			InputMap.action_add_event(bind+p2Text,event)
 			active = false
 			text = "_"
 			control.bindButton = null
 			control.update_display()
-	
+
 
 func _input(_event):
 	# check if hovering
