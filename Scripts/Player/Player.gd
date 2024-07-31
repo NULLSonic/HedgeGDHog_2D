@@ -1153,7 +1153,7 @@ func get_ring():
 	elif partner != null:
 		if partner.playerControl == 1: # error prevention
 			partner.get_ring()
-	
+
 		partner.get_ring()
 
 func kill():
