@@ -15,7 +15,7 @@ func _process(delta):
 	$BigCog.rotate(-delta*2*speed)
 	$BigCog/CogCircle.rotate(delta*2*speed)
 	$Sonic/Cog.rotate(-delta*1.5*speed)
-	
+
 
 func _input(event):
 	# end title on start press

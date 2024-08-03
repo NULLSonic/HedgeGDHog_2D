@@ -1,0 +1,162 @@
+[gd_scene load_steps=19 format=3 uid="uid://crt36uxj3alri"]
+
+[ext_resource type="Material" uid="uid://bveqi5m5ihsgj" path="res://Shaders/PlayerPalette.tres" id="1_bjmss"]
+[ext_resource type="AnimationLibrary" uid="uid://cjyrc86ho6tep" path="res://Graphics/Players/Sonic/Animation.res" id="1_evb7b"]
+[ext_resource type="Texture2D" uid="uid://clyebyae0nnne" path="res://Graphics/Players/Sonic.png" id="2_6xy2a"]
+[ext_resource type="Texture2D" uid="uid://dlomjk6vm15ep" path="res://Graphics/Misc/DashDust.png" id="3_ll20w"]
+[ext_resource type="Texture2D" uid="uid://dvqglf8dididc" path="res://Graphics/Items/shield_plain.png" id="4_fe5jf"]
+
+[sub_resource type="AtlasTexture" id="89"]
+atlas = ExtResource("3_ll20w")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="90"]
+atlas = ExtResource("3_ll20w")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="91"]
+atlas = ExtResource("3_ll20w")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="92"]
+atlas = ExtResource("3_ll20w")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="93"]
+atlas = ExtResource("3_ll20w")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="94"]
+atlas = ExtResource("3_ll20w")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="95"]
+atlas = ExtResource("3_ll20w")
+region = Rect2(288, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="96"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("89")
+}, {
+"duration": 1.0,
+"texture": SubResource("90")
+}, {
+"duration": 1.0,
+"texture": SubResource("91")
+}, {
+"duration": 1.0,
+"texture": SubResource("92")
+}, {
+"duration": 1.0,
+"texture": SubResource("93")
+}, {
+"duration": 1.0,
+"texture": SubResource("94")
+}, {
+"duration": 1.0,
+"texture": SubResource("95")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[sub_resource type="RectangleShape2D" id="111"]
+size = Vector2(18, 22)
+
+[sub_resource type="Animation" id="Animation_o1vbe"]
+resource_name = "Flash"
+length = 0.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/row")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [9.0, 6.0]
+}
+
+[sub_resource type="Animation" id="Animation_t7log"]
+resource_name = "PowerDown"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/row")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [5.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_y01gt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/row")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yhl61"]
+_data = {
+"Flash": SubResource("Animation_o1vbe"),
+"PowerDown": SubResource("Animation_t7log"),
+"RESET": SubResource("Animation_y01gt")
+}
+
+[node name="Sonic" type="Node2D"]
+
+[node name="PlayerAnimation" type="AnimationPlayer" parent="."]
+root_node = NodePath("../..")
+libraries = {
+"Animation": ExtResource("1_evb7b")
+}
+autoplay = "idle"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 5
+material = ExtResource("1_bjmss")
+texture = ExtResource("2_6xy2a")
+offset = Vector2(0, -5)
+hframes = 16
+vframes = 18
+
+[node name="DashDust" type="AnimatedSprite2D" parent="Sprite2D"]
+visible = false
+sprite_frames = SubResource("96")
+autoplay = "default"
+frame = 3
+offset = Vector2(-9, -4)
+
+[node name="CrouchBox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("111")
+disabled = true
+
+[node name="SuperPalette" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_yhl61")
+}
+
+[node name="CenterReference" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.501961)
+texture = ExtResource("4_fe5jf")
+hframes = 4

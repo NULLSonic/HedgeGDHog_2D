@@ -28,14 +28,16 @@ var flashTimer = 0
 @export var ring_num_pos: Vector2 = Vector2(48, 0)
 @export var ring_num_align: String = "%6d"
 @export_subgroup("Life Counter")
-@export var life_pos: Vector2 = Vector2(8, 216)
-@export var life_num_pos: Vector2 = Vector2(8, 0)
+@export var life_pos: Vector2 = Vector2(0, 208)
+@export var life_num_pos: Vector2 = Vector2(24, 8)
 @export var life_num_align: String = "%2d"
 
 func _ready() -> void:
 	if !Engine.is_editor_hint():
+		pass
 		# Set character Icon
-		$LifeCounter.frame = Global.PlayerChar1-1
+		#print("res://Graphics/Players/" + str(Global.CHARACTERS(Global.PlayerChar1)).capitalize() + "/Icon.png")
+		#$LifeCounter.texture = load("res://Graphics/Players/" + str(Global.PlayerChar1).capitalize() + "Icon.png")
 
 func _process(delta: float) -> void:
 	# set score string to match global score with leading 0s
@@ -85,5 +87,3 @@ func set_pos():
 	$Rings.position = ring_pos
 	ringText.position = ring_num_pos
 
-	$LifeCounter.position = life_pos
-	lifeText.position = life_num_pos

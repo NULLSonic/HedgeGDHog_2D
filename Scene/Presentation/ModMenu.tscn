@@ -1,0 +1,100 @@
+[gd_scene load_steps=8 format=3 uid="uid://c2ixa2w4b7w7a"]
+
+[ext_resource type="Texture2D" uid="uid://bemwlrblbgn23" path="res://Graphics/Backgrounds/WorldsBackground.png" id="1_8u62u"]
+[ext_resource type="Script" path="res://Scripts/Level/ModMenu.gd" id="1_q2deh"]
+[ext_resource type="Theme" uid="uid://d3qyeb17xw56s" path="res://Themes/Default.tres" id="3_0u12u"]
+[ext_resource type="Script" path="res://Scripts/Misc/ModLoader.gd" id="4_ktpeb"]
+[ext_resource type="PackedScene" uid="uid://dkgatsk3g15l5" path="res://Entities/Misc/mod_item.tscn" id="4_vg54c"]
+
+[sub_resource type="Animation" id="Animation_6fdsg"]
+resource_name = "slide"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BG/TextureRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-32, -32)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Back:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(-2, -2, 1),
+"update": 0,
+"values": [Color(0.176471, 0, 0.145098, 1), Color(0.141587, 0.000154067, 0.221951, 1), Color(0.176471, 0, 0.145098, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7oh3n"]
+_data = {
+"slide": SubResource("Animation_6fdsg")
+}
+
+[node name="ModMenu" type="Node2D"]
+script = ExtResource("1_q2deh")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Back" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.176471, 0, 0.145098, 1)
+metadata/_edit_lock_ = true
+
+[node name="BG" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 424.0
+offset_bottom = 240.0
+metadata/_edit_lock_ = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/BG"]
+layout_mode = 0
+offset_right = 456.0
+offset_bottom = 272.0
+texture = ExtResource("1_8u62u")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="mover" type="AnimationPlayer" parent="CanvasLayer/BG"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_7oh3n")
+}
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 19.0
+grow_horizontal = 2
+size_flags_horizontal = 6
+theme = ExtResource("3_0u12u")
+text = "Mods"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." node_paths=PackedStringArray("mod_list")]
+offset_top = 32.0
+offset_right = 424.0
+offset_bottom = 240.0
+script = ExtResource("4_ktpeb")
+mod_list = NodePath("VBoxContainer")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="temp_item" parent="ScrollContainer/VBoxContainer" instance=ExtResource("4_vg54c")]
+layout_mode = 2
+size_flags_horizontal = 4

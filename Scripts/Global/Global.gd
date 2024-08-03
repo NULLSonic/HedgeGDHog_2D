@@ -72,15 +72,15 @@ var setWaterLevel = 0 # used by other nodes to change the water level
 var waterScrollSpeed = 64 # used by other nodes for how fast to move the water to different levels
 
 # characters (if you want more you should add one here, see the player script too for more settings)
-enum CHARACTERS {NONE,SONIC,TAILS,KNUCKLES,MIGHTY,RAY,AMY}
+enum CHARACTERS {NONE,SONIC,TAILS,KNUCKLES,AMY}
 var PlayerChar1 = CHARACTERS.SONIC
 var PlayerChar2 = CHARACTERS.NONE
 
 # Level settings
-var hardBorderLeft   = -100000000
-var hardBorderRight  =  100000000
-var hardBorderTop    = -100000000
-var hardBorderBottom =  100000000
+var hardBorderLeft		=	-100000000
+var hardBorderRight		=	100000000
+var hardBorderTop		=	-100000000
+var hardBorderBottom	=	100000000
 
 # Animal spawn type reference, see the level script for more information on the types
 var animals = [0,1]
@@ -124,6 +124,9 @@ func _ready():
 		await get_tree().process_frame
 		get_tree().paused = false
 	is_main_loaded = true
+
+	RichPresence.set_large_img("logo", "HedgeGDHog Ver. " + ProjectSettings.get_setting("application/config/version"))
+	RichPresence.set_text("Starting up...", "")
 
 func _process(delta):
 	# do a check for certain variables, if it's all clear then count the level timer up
