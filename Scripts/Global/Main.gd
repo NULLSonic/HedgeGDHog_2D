@@ -41,7 +41,7 @@ func _process(delta):
 		Global.bossMusic.stream_paused = Global.drowning.playing
 		# pause effect music if drowning
 		Global.effectTheme.stream_paused = Global.drowning.playing or Global.bossMusic.playing
-		
+
 		# check that volume lerp isn't transitioned yet
 		if volumeLerp < 1:
 			# move volume lerp to 1
@@ -70,9 +70,9 @@ func _input(event):
 			# Do the unpause
 			wasPaused = false
 			get_tree().paused = false
-		
-		
-	
+
+
+
 	# reset game if F2 is pressed (this button can be changed in project settings)
 	if event.is_action_pressed("ui_reset"):
 		reset_game()
@@ -102,15 +102,15 @@ func change_scene_to_file(scene = null, fadeOut = "", fadeIn = "", length = 1, s
 	sceneCanPause = false
 	# set fader speed
 	$GUI/Fader.speed_scale = 1.0/float(length)
-	
+
 	# if fadeOut isn't blank, play the fade out animation and then wait, otherwise skip this
 	if fadeOut != "":
 		$GUI/Fader.queue(fadeOut)
 		await $GUI/Fader.animation_finished
-	
+
 	# error prevention
 	emit_signal("scene_faded")
-	
+
 	# use restoreScene to tell if we're restoring a scene
 	var restoreScene = false
 	# storeScene will only remember the first child of scene loader, this will be referenced later
@@ -123,11 +123,11 @@ func change_scene_to_file(scene = null, fadeOut = "", fadeIn = "", length = 1, s
 		else:
 			Global.stageInstanceMemory = $SceneLoader.get_child(0)
 			$SceneLoader.remove_child(Global.stageInstanceMemory)
-	
+
 	# clear scene
 	for i in $SceneLoader.get_children():
 		i.queue_free()
-	
+
 	await get_tree().process_frame
 	# reset data level data, if reset data is true
 	if resetData:
@@ -141,7 +141,7 @@ func change_scene_to_file(scene = null, fadeOut = "", fadeIn = "", length = 1, s
 			Global.timerActive = false
 		Global.globalTimer = 0
 		Global.stageClearPhase = 0
-	
+
 	# check if to restore scene
 	if restoreScene:
 		# add stored scene to scene loader
@@ -167,14 +167,14 @@ func change_scene_to_file(scene = null, fadeOut = "", fadeIn = "", length = 1, s
 			# check there's not a stored scene first
 			if !is_instance_valid(Global.stageInstanceMemory):
 				Global.stageLoadMemory = lastScene
-	
+
 	# play fade in animation if it's not blank
 	if fadeIn != "":
 		$GUI/Fader.play_backwards(fadeIn)
 	# if fadeOut wasn't set either then just reset the fader
 	elif fadeOut != "":
 		$GUI/Fader.play("RESET")
-	
+
 	# stop life sound (if it's still playing)
 	if Global.life.is_playing():
 		Global.life.stop()
