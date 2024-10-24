@@ -9,9 +9,9 @@ extends Area2D
 @export var topBoundry  = 0
 
 @export var setRight = true
-@export var rightBoundry = 320
+@export var rightBoundry = 424
 @export var setBottom = true
-@export var bottomBoundry = 224
+@export var bottomBoundry = 240
 
 @export var scrollSpeed = 0 # 0 will be instant
 
@@ -36,7 +36,7 @@ func _process(_delta):
 	if (Engine.is_editor_hint()):
 		queue_redraw()
 		# remember to change this for your game if the screen size gets changed, this is just for debugging
-		screenSize = Vector2(320,224)
+		screenSize = Vector2(424,240)
 		rightBoundry = max(leftBoundry+screenSize.x,rightBoundry)
 		bottomBoundry = max(topBoundry+screenSize.y,bottomBoundry)
 

@@ -1,13 +1,17 @@
-***PLEASE PLEASE PLEASE! Before you submit a Pull Request to this repository, post about what you want to submit in [Discussions](https://github.com/Techokami/SonicWorldsNext/discussions) first! PLEASE!***
+# HedgeGDHog
+HedgeGDHog is a fork of "Sonic Worlds Next" adding new features and adding easier way to add new characters. As well as a built-in Mod Loader.
 
-# Sonic Worlds Next
-![Logo](https://github.com/Techokami/SonicWorldsNext/blob/main/icon.png)
+# Setup
+Download the latest version [Godot Engine](https://godotengine.org) and extract it anywhere you'd like. Incase you haven't downlaod the latest version of this framework by clicking on the green button labelled "Code" and pressing "Download ZIP". Again extract it anywhere you'd like.
 
-This is the official development repository for the successor to Sonic Worlds Delta.
+Now open Godot and press the button labelled "Import". Go the folder path of HedgeGDHog and open a file called "godot.project".
 
-This uses [Godot 4.2](https://godotengine.org/) to implement a 2D Sonic the Hedgehog-like framework, intended for use in creating fangame projects and original game projects. Godot 4 support will be prioritized once it has reached stable status. Like Godot, the code within this repository is provided under the MIT License.
- if you use godot 3 use the [Godot 3 Branch here](https://github.com/Techokami/SonicWorldsNext/tree/Sonic-Worlds-Next-Godot-3).
+# Modding
+Soon...
 
-Found a problem with the code? Please use the Issues tab! But see if it hasn't been reported yet to prevent duplicate reports.
+# Credits & Special Thanks
+## Programmer
+- [NULLSonic](https://www.youtube.com/@NULLErrorSonic)
 
-Want to discuss the project and ask questions? Please use the [Discussions](https://github.com/Techokami/SonicWorldsNext/discussions) tab, or ask in the official threads on SFGHQ or Sonic Retro.
+## Special Thanks
+- [SEGA](https://www.sega.com) - For creating such an awesome franchise

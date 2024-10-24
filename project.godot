@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Sonic Worlds Next"
+config/name="HedgeGDHog"
 run/main_scene="res://Scene/Main.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="NULLSonic/HedgeGDHog"
@@ -23,6 +23,7 @@ config/icon="res://icon.png"
 
 Global="*res://Scripts/Global/Global.gd"
 GlobalFunctions="*res://Scripts/Global/GlobalFunctions.gd"
+DiscordRPCLoader="*res://addons/discord-rpc-gd/nodes/discord_autoload.gd"
 
 [debug]
 
@@ -36,7 +37,12 @@ window/stretch/mode="viewport"
 
 [dotnet]
 
-project/assembly_name="Sonic Worlds Next"
+project/assembly_name="HedgeGDHog"
+project/name="HedgeGDHog"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/diagnosticlist/plugin.cfg", "res://addons/discord-rpc-gd/plugin.cfg", "res://addons/gut/plugin.cfg", "res://addons/rmsmartshape/plugin.cfg")
 
 [gui]
 
